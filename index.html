@@ -63,7 +63,7 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .ch { flex: 1; min-width: 0; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ch b { color: var(--ink); font-weight: 700; padding-right: 6px; }
 .langs { display: inline-flex; flex: none; padding: 3px; border-radius: 999px; background: var(--soft); }
-.langs button { min-height: 40px; padding: 0 15px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-weight: 700; font-size: 13.5px; cursor: pointer; }
+.langs button { min-width: 48px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-family: var(--f-body); font-weight: 600; font-size: 13.5px; letter-spacing: 0.04em; cursor: pointer; }
 .langs button[aria-pressed="true"] { background: var(--pink); color: #fff; }
 #prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--pink); transform: scaleX(0); transform-origin: left; }
 @media (max-width: 520px) { .ch { display: none; } .mark { flex: 1; } }
@@ -341,8 +341,8 @@ body.has-bar .close .inner { padding-bottom: 116px; }
       <a class="mark" href="#top">KBFG<i>×</i>Tenity</a>
       <div class="ch" id="tbCh"></div>
       <div class="langs" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+        <button type="button" data-lang="en" aria-pressed="true" aria-label="English" lang="en">EN</button>
+        <button type="button" data-lang="ko" aria-pressed="false" aria-label="한국어" lang="ko">KO</button>
       </div>
       <div id="prog" aria-hidden="true"></div>
     </header>
