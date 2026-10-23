@@ -5,7 +5,7 @@ Light, Tenity-branded one-page brochure introducing the seven Korean startups at
 ## Files
 - `index.html` — the whole page (layout, styles and content)
 - `assets/poster.jpg` — event poster (used as the link-preview image)
-- `assets/skyline.jpg` — skyline crop from the poster, used behind the hero
+- `assets/skyline.jpg` — skyline crop from the poster (used by the earlier dark version only)
 - `assets/logos/` — startup logos
 
 ## Editing content
