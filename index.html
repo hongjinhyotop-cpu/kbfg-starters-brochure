@@ -680,10 +680,7 @@ document.documentElement.classList.add('js');
       facts.appendChild(f2);
     }
     info.appendChild(facts);
-    var more = el('button', 'more', null, { type: 'button', 'aria-expanded': 'false', 'aria-controls': 'more-' + s.id });
-    more.appendChild(el('span', 'ml')); more.appendChild(el('span', 'ch2', '↓', { 'aria-hidden': 'true' }));
-    info.appendChild(more);
-    var mb = el('div', 'i-more', null, { id: 'more-' + s.id, hidden: '' });
+    var mb = el('div', 'i-more');
     mb.appendChild(el('p', 'i-desc', null, { 'data-i18n': 's' + i + '.desc' }));
     mb.appendChild(el('ul', 'tags', null, { 'data-tags': i }));
     info.appendChild(mb);
