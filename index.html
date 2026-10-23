@@ -123,7 +123,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
   font-family: var(--f-display);
   font-variation-settings: "wdth" 116;
   font-weight: 800;
-  font-size: clamp(40px, 11.6vw, 96px);
+  font-size: clamp(36px, 10.6vw, 92px);
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -170,7 +170,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline
 
 @media (min-width: 980px) {
   .hero .inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr); align-items: end; gap: 48px; padding-block: 72px 80px; }
-  .hl { font-size: clamp(64px, 6.8vw, 100px); }
+  .hl { font-size: clamp(54px, 5.5vw, 88px); }
   .hero-sky { opacity: 0.62; }
 }
 
@@ -1013,6 +1013,7 @@ document.documentElement.classList.add('js');
       if (animate) decode(n, v, l); else n.textContent = v;
     });
     $$('[data-i18n-html]').forEach(function (n) { n.innerHTML = T[l][n.getAttribute('data-i18n-html')]; });
+    if (hlLines) setHeadline(l, animate);
     $$('[data-tags]').forEach(function (u) {
       u.textContent = '';
       STARTUPS[+u.getAttribute('data-tags')].tags[l].forEach(function (x) { u.appendChild(el('li', null, x)); });
@@ -1037,16 +1038,16 @@ document.documentElement.classList.add('js');
   /* ---------- hero headline: EN ⇄ KO, decoded like a live caption ---------- */
   var HL = { en: ['Innovation', 'Beyond', 'Borders'], ko: ['국경을', '넘는', '혁신'] };
   var hlLines = $$('.hl > span'), capTag = $('#capTag'), hero = $('#top'), heroOn = true, hlLang = 'en';
-  function heroStep() {
-    if (heroOn && !document.hidden) {
-      var from = hlLang; hlLang = hlLang === 'en' ? 'ko' : 'en';
-      capTag.textContent = (from === 'en' ? 'ENG' : 'KOR') + ' → ' + (hlLang === 'en' ? 'ENG' : 'KOR');
-      hlLines.forEach(function (ln, i) {
-        ln.lang = hlLang;
-        decode(ln, HL[hlLang][i], hlLang, { mode: 'full', dur: 760 + i * 200, force: true });
-      });
-    }
-    setTimeout(heroStep, 4800);
+  var HL_LABEL = { en: 'Innovation Beyond Borders', ko: '국경을 넘는 혁신' };
+  function setHeadline(l, animate) {
+    var from = hlLang; hlLang = l;
+    $('.hl').setAttribute('aria-label', HL_LABEL[l]);
+    capTag.textContent = animate && from !== l ? (from === 'en' ? 'ENG' : 'KOR') + ' → ' + (l === 'en' ? 'ENG' : 'KOR') : (l === 'en' ? 'ENG' : 'KOR');
+    hlLines.forEach(function (ln, i) {
+      ln.lang = l;
+      if (animate) decode(ln, HL[l][i], l, { mode: 'full', dur: 760 + i * 200, force: true });
+      else ln.textContent = HL[l][i];
+    });
   }
 
   /* ---------- route: arc draws, then a dot flies ICN → SIN ---------- */
@@ -1262,7 +1263,7 @@ document.documentElement.classList.add('js');
     })(vt0);
   }
   onScroll();
-  if (!R) { setTimeout(heroStep, 4200); requestAnimationFrame(routeFrame); }
+  if (!R) requestAnimationFrame(routeFrame);
   else { var end = arc.getPointAtLength(arcLen); plane.setAttribute('cx', end.x); plane.setAttribute('cy', end.y); }
   var hash = (location.hash || '').slice(1);
   STARTUPS.forEach(function (s, i) { if (s.id === hash) setTimeout(function () { openSlide(i); }, 60); });
