@@ -15,9 +15,9 @@ All startup text lives in the `STARTUPS` list inside the `<script>` near the bot
 Tenity brand colours sampled from tenity.com: pink `#EB5064`, black, white, green `#71DA96`, blue `#98B7F1` / `#5686E9`. Display font is Inter Tight as a stand-in until the official Tenity font is confirmed. The earlier dark version is in the git history (commit `5b8dd50`).
 
 ## Interactions
-- Hero: headline (with Tenity's inline pill) switches (with a decode effect) when the language button is pressed, ICN → SIN route animation, live countdown (switches to "Live now" during the event), add-to-calendar and copy-link buttons.
-- Sector marquee, count-up stats, lineup list that jumps to each card.
-- Startup deck: swipe / arrow buttons / ← → keys / pager. Each startup has its own colour (`c`, `c2` in `STARTUPS`) and an illustrative canvas animation (`viz`: radar, face, graph, chart, globe, cctv, qr). Funding ladder uses `rung` (0 Pre-A, 1 Series A, 2 Series B, 3 Pre-IPO).
+- Hero: headline with Tenity's inline pill; the pill shows days left (D-23 → D-DAY → LIVE). Headline switches with a decode effect when the language button is pressed; ICN → SIN route animation, live countdown (switches to "Live now" during the event), add-to-calendar and copy-link buttons.
+- Sector marquee that opens from a pill into a full-width band on scroll; count-up stats; "Meet the startups" pill rolls through the seven logos; lineup list that jumps to each card. Background stripes sway slowly and follow the pointer on desktop.
+- Startup deck: swipe / arrow buttons / ← → keys / pager; rolling counter, colour wipe on each new card, slight parallax on the visual while swiping, description + tags folded behind "Read more". Each startup has its own colour (`c`, `c2` in `STARTUPS`) and an illustrative canvas animation (`viz`: radar, face, graph, chart, globe, cctv, qr). Funding ladder uses `rung` (0 Pre-A, 1 Series A, 2 Series B, 3 Pre-IPO).
 - ★ Save: visitors can shortlist startups; the list is kept on their own device only and can be copied as text.
 - All motion is turned off for visitors with "reduce motion" enabled.
 

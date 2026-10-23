@@ -69,7 +69,7 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 @media (max-width: 520px) { .ch { display: none; } .mark { flex: 1; } }
 
 /* ---------- curtain (blurred stripes from tenity.com) ---------- */
-.curtain { position: absolute; z-index: -1; pointer-events: none; inset: 0; overflow: hidden; }
+.curtain { position: absolute; z-index: -1; pointer-events: none; inset: 0; overflow: hidden; transform: translateX(calc(var(--px, 0) * 1px)); transition: transform 1.2s var(--ease); }
 .curtain::before {
   content: ""; position: absolute; top: -10%; bottom: -10%; right: -5%; width: 70%;
   background:
@@ -77,6 +77,7 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
     radial-gradient(60% 55% at 70% 35%, var(--c1, rgba(235,80,100,.75)), transparent 70%),
     radial-gradient(50% 45% at 35% 15%, var(--c2, rgba(86,134,233,.55)), transparent 70%);
   filter: blur(14px);
+  animation: sway 13s ease-in-out infinite alternate;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 80%, transparent 100%), linear-gradient(to bottom, #000 55%, transparent);
   mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 80%, transparent 100%);
   opacity: .55;
@@ -99,7 +100,9 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .kicker .tag { color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; background: #fff; }
 .hl { margin: 18px 0 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(50px, 14.2vw, 128px); line-height: 0.93; letter-spacing: -0.05em; }
 .hl .ln { display: flex; align-items: center; gap: 0.14em; white-space: nowrap; }
-.hl .pill { display: inline-block; flex: none; width: 1.7em; height: 0.66em; border-radius: 999px; background: var(--ink); transform-origin: left center; animation: grow 1s .3s var(--ease) both; }
+.hl .pill { display: inline-flex; align-items: center; justify-content: center; gap: .18em; flex: none; width: 1.7em; height: 0.66em; border-radius: 999px; background: var(--ink); color: #fff; animation: wipe 1s .3s var(--ease) both; }
+.pill-t { font-family: var(--f-body); font-weight: 600; font-size: 0.27em; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pill-t .live { display: inline-block; width: .5em; height: .5em; border-radius: 50%; background: var(--pink); margin-right: .35em; vertical-align: .05em; animation: pulse 1.2s ease-in-out infinite; }
 .hl .t:lang(ko) { letter-spacing: -0.04em; }
 .sub-prog { margin: 22px 0 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(20px, 4.6vw, 30px); line-height: 1.15; letter-spacing: -0.02em; }
 .sub-prog span { color: var(--muted); font-weight: 500; }
@@ -132,7 +135,7 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 }
 
 /* ---------- marquee ---------- */
-.mq { overflow: hidden; background: var(--black); color: #fff; padding-block: 18px; }
+.mq { overflow: hidden; background: var(--black); color: #fff; padding-block: 18px; --mx: 0; --mr: 0; clip-path: inset(0 calc(var(--mx) * 1%) round calc(var(--mr) * 1px)); }
 .mq-track { display: flex; width: max-content; animation: marq 50s linear infinite; }
 .mq-track span { display: inline-flex; align-items: center; gap: 26px; padding-right: 26px; font-family: var(--f-display); font-weight: 600; font-size: clamp(18px, 3.4vw, 28px); letter-spacing: -0.02em; white-space: nowrap; }
 .mq-track span::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--pink); }
@@ -150,7 +153,11 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .intro .inner { padding-block: 72px 32px; display: grid; gap: 20px; }
 .h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(44px, 11vw, 104px); line-height: 0.93; letter-spacing: -0.05em; }
 .h2 .ln { display: flex; align-items: center; gap: 0.14em; flex-wrap: wrap; }
-.h2 .pill { display: inline-block; width: 1.5em; height: 0.62em; border-radius: 999px; background: var(--pink); }
+.h2 .pill { display: inline-flex; flex: none; width: 2.4em; height: 0.74em; border-radius: 999px; background: var(--pink); padding: 0.07em; }
+.roll { position: relative; flex: 1; border-radius: 999px; background: #fff; overflow: hidden; }
+.roll img { position: absolute; left: 9%; top: 9%; width: 82%; height: 82%; object-fit: contain; transform: translateY(115%); transition: transform .7s var(--ease); }
+.roll img.on { transform: none; }
+.roll img.out { transform: translateY(-115%); }
 .intro .sub { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(20px, 4vw, 28px); line-height: 1.25; letter-spacing: -0.02em; max-width: 30ch; }
 .intro .lede { margin: 0; max-width: 62ch; color: var(--ink-2); font-size: 17px; }
 @media (min-width: 980px) {
@@ -189,6 +196,10 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .deck-head .inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; padding-block: 64px 24px; }
 .deck-head .eyebrow { margin: 0; color: var(--pink-ink); }
 .count { margin: 10px 0 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(64px, 15vw, 120px); line-height: 0.85; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+.odo { display: inline-flex; height: 0.86em; line-height: 0.86; overflow: hidden; vertical-align: top; }
+.odo .dg { display: flex; flex-direction: column; transition: transform .7s var(--ease); }
+.odo .dg span { display: block; height: 0.86em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .count .of { color: var(--muted); font-weight: 500; font-size: 0.36em; letter-spacing: -0.02em; padding-left: 8px; }
 .now { margin: 12px 0 0; font-family: var(--f-display); font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
 .now span { color: var(--muted); font-weight: 500; }
@@ -200,10 +211,11 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .navb button:disabled { opacity: .3; cursor: default; }
 .deck { --edge: max(16px, env(safe-area-inset-left, 0px), calc((100vw - 1200px) / 2)); display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge); padding: 6px var(--edge) 28px; scrollbar-width: none; position: relative; }
 .deck::-webkit-scrollbar { display: none; }
-.slide { flex: 0 0 min(calc(100vw - 44px), 1040px); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1fr); background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 70px -40px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.05); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.slide { flex: 0 0 min(calc(100vw - 44px), 1040px); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1fr); background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 30px 70px -40px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.05); transition: opacity .5s var(--ease), transform .5s var(--ease); align-content: start; }
 .js .slide:not(.on) { opacity: .5; transform: scale(.965); }
 .vis { position: relative; height: 240px; overflow: hidden; background: color-mix(in srgb, var(--c) 17%, #fff); border-radius: 0 0 28px 28px; }
-.vis canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.vis canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; will-change: transform; }
+.slide.wipe .vis { animation: wipe .85s var(--ease) both; }
 .v-top { position: absolute; z-index: 2; inset: 16px 16px auto 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
 .v-num { font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
 .v-num small { color: var(--muted); font-weight: 500; font-size: 13px; padding-left: 4px; }
@@ -232,6 +244,10 @@ html[lang="ko"] .v-cap { letter-spacing: 0; }
 .ladder .lb span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ladder .lb span.cur { color: var(--ink); }
 .i-desc { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.i-more { display: grid; gap: 14px; }
+.more { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 4px; border: 0; background: none; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.more .ch2 { display: inline-block; transition: transform .3s var(--ease); text-decoration: none; }
+.more[aria-expanded="true"] .ch2 { transform: rotate(180deg); }
 .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .tags li { font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); }
 .acts { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -244,9 +260,13 @@ html[lang="ko"] .v-cap { letter-spacing: 0; }
 .save[aria-pressed="true"] .st { color: var(--pink); transform: scale(1.18) rotate(-8deg); }
 @media (min-width: 640px) { .i-facts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .i-facts.one { grid-template-columns: minmax(0, 1fr); } }
 @media (min-width: 900px) {
-  .slide { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); min-height: 580px; }
+  .slide { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); min-height: 0; }
+  .i-tag { font-size: clamp(30px, 3.1vw, 40px); }
+  .deck-head .inner { padding-block: 48px 18px; }
+  .count { font-size: clamp(64px, 7vw, 96px); }
   .vis { height: auto; margin: 12px 0 12px 12px; border-radius: 18px 50% 50% 18px / 18px 50% 50% 18px; }
-  .info { padding: 40px 42px; gap: 18px; }
+  .info { padding: 32px 38px 30px; gap: 14px; }
+  .vis { min-height: 380px; }
 }
 .pager { display: flex; gap: 6px; padding-bottom: 72px; }
 .pager button { flex: 1; height: 24px; border: 0; background: transparent; padding: 0; cursor: pointer; position: relative; }
@@ -297,7 +317,8 @@ body.has-bar .close .inner { padding-bottom: 116px; }
 @keyframes marq { to { transform: translateX(-50%); } }
 @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes wipe { from { clip-path: inset(0 100% 0 0 round 999px); } to { clip-path: inset(0 0 0 0 round 0); } }
+@keyframes sway { from { transform: translateX(-3%) skewX(-3deg); } to { transform: translateX(3%) skewX(3deg); } }
 .rv.play { animation: rise .9s var(--ease) both; }
 .hero .rise { animation: rise 1s var(--ease) both; }
 .hero .rise.d1 { animation-delay: .1s; } .hero .rise.d2 { animation-delay: .2s; } .hero .rise.d3 { animation-delay: .3s; }
@@ -329,11 +350,10 @@ body.has-bar .close .inner { padding-bottom: 116px; }
     <div>
       <div class="kicker lbl-sm rise">
         <span>Singapore — Korea</span>
-        <span class="tag" id="capTag">ENG</span>
       </div>
       <h1 class="hl rise d1" aria-label="Innovation Beyond Borders">
         <span class="ln" aria-hidden="true"><span class="t">Innovation</span></span>
-        <span class="ln" aria-hidden="true"><i class="pill"></i><span class="t">Beyond</span></span>
+        <span class="ln" aria-hidden="true"><i class="pill"><span class="pill-t" id="pillT">D-23</span></i><span class="t">Beyond</span></span>
         <span class="ln" aria-hidden="true"><span class="t">Borders</span></span>
       </h1>
       <p class="sub-prog rise d2">KBFG Starters Program <span>| Tenity Lab Crawl</span></p>
@@ -388,8 +408,6 @@ body.has-bar .close .inner { padding-bottom: 116px; }
   <div class="inner">
     <div class="prow rv" data-count="7"><span class="k"><span data-i18n="st.1k">Startups</span><span class="d" data-i18n="st.1d">Korean teams in the lineup</span></span><span class="v">07</span></div>
     <div class="prow rv" data-count="7"><span class="k"><span data-i18n="st.2k">Sectors</span><span class="d" data-i18n="st.2d">From maritime AI to payments</span></span><span class="v">07</span></div>
-    <div class="prow rv" data-count="2"><span class="k"><span data-i18n="st.3k">Markets</span><span class="d" data-i18n="st.3d">Korea → Singapore</span></span><span class="v">02</span></div>
-    <div class="prow rv" data-count="4"><span class="k"><span data-i18n="st.4k">Hours</span><span class="d" data-i18n="st.4d">13:00–17:00 SGT</span></span><span class="v">04</span></div>
   </div>
 </section>
 
@@ -397,7 +415,7 @@ body.has-bar .close .inner { padding-bottom: 116px; }
   <div class="inner">
     <h2 class="h2 rv" id="meetT">
       <span class="ln"><span data-i18n="meet1">Meet the</span></span>
-      <span class="ln"><i class="pill" aria-hidden="true"></i><span data-i18n="meet2">startups</span></span>
+      <span class="ln"><i class="pill" aria-hidden="true"><span class="roll" id="roll"></span></i><span data-i18n="meet2">startups</span></span>
     </h2>
     <p class="sub rv" data-i18n="sub">Seven Korean startups. New possibilities across borders.</p>
     <p class="lede rv" data-i18n="lede">Discover seven Korean startups.</p>
@@ -417,7 +435,7 @@ body.has-bar .close .inner { padding-bottom: 116px; }
     <div class="inner">
       <div>
         <p class="eyebrow lbl-sm" data-i18n="deckE">The startups</p>
-        <p class="count"><span id="cur">01</span><span class="of">/ 07</span></p>
+        <p class="count"><span class="odo" id="odo" aria-hidden="true"><span class="dg"></span><span class="dg"></span></span><span class="sr" id="cur">01</span><span class="of">/ 07</span></p>
         <p class="now" id="nowName" aria-live="polite">Seadronix</p>
         <p class="hint"><span data-i18n="hint">Swipe or use ← → keys</span> <span class="sw">→</span></p>
       </div>
@@ -536,7 +554,7 @@ document.documentElement.classList.add('js');
       lede: 'Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.',
       lineupT: 'Lineup at a glance', deckE: 'The startups', hint: 'Swipe or use ← → keys',
       visit: 'Visit website', logo: ' logo', prev: 'Previous startup', next: 'Next startup', goto: 'Go to ',
-      offer: 'Key offering', stageL: 'Funding stage', rung0: 'Pre-A', rung1: 'A', rung2: 'B', rung3: 'Pre-IPO',
+      more: 'Read more', less: 'Show less', offer: 'Key offering', stageL: 'Funding stage', rung0: 'Pre-A', rung1: 'A', rung2: 'B', rung3: 'Pre-IPO',
       illus: 'Illustrative visual', save: 'Save', saved: 'Saved', 'list.title': 'My shortlist', 'list.copy': 'Copy list', 'list.clear': 'Clear all',
       'list.view': 'View', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — my shortlist', copied: 'Copied', copyFail: 'Couldn’t copy here',
       cal: 'Add to calendar', copyLink: 'Copy link', linkCopied: 'Link copied', close: 'Close',
@@ -554,7 +572,7 @@ document.documentElement.classList.add('js');
       lede: '해양 인텔리전스, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 분석, 영상 인텔리전스, 결제 분야에서 혁신을 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르와 아시아 지역에서의 협업 기회를 찾아보세요.',
       lineupT: '한눈에 보는 라인업', deckE: '스타트업 소개', hint: '옆으로 넘기거나 ← → 키를 쓰세요',
       visit: '웹사이트 방문', logo: ' 로고', prev: '이전 스타트업', next: '다음 스타트업', goto: '이동: ',
-      offer: '핵심 제품', stageL: '투자 단계', rung0: '프리A', rung1: 'A', rung2: 'B', rung3: '프리IPO',
+      more: '더 보기', less: '접기', offer: '핵심 제품', stageL: '투자 단계', rung0: '프리A', rung1: 'A', rung2: 'B', rung3: '프리IPO',
       illus: '이해를 돕는 일러스트', save: '찜하기', saved: '찜함', 'list.title': '내 관심 기업', 'list.copy': '목록 복사', 'list.clear': '모두 지우기',
       'list.view': '보기', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — 내 관심 기업', copied: '복사됐어요', copyFail: '여기서는 복사할 수 없어요',
       cal: '캘린더에 추가', copyLink: '링크 복사', linkCopied: '링크가 복사됐어요', close: '닫기',
@@ -656,8 +674,13 @@ document.documentElement.classList.add('js');
       facts.appendChild(f2);
     }
     info.appendChild(facts);
-    info.appendChild(el('p', 'i-desc', null, { 'data-i18n': 's' + i + '.desc' }));
-    info.appendChild(el('ul', 'tags', null, { 'data-tags': i }));
+    var more = el('button', 'more', null, { type: 'button', 'aria-expanded': 'false', 'aria-controls': 'more-' + s.id });
+    more.appendChild(el('span', 'ml')); more.appendChild(el('span', 'ch2', '↓', { 'aria-hidden': 'true' }));
+    info.appendChild(more);
+    var mb = el('div', 'i-more', null, { id: 'more-' + s.id, hidden: '' });
+    mb.appendChild(el('p', 'i-desc', null, { 'data-i18n': 's' + i + '.desc' }));
+    mb.appendChild(el('ul', 'tags', null, { 'data-tags': i }));
+    info.appendChild(mb);
 
     var acts = el('div', 'acts');
     if (s.url) {
@@ -914,11 +937,10 @@ document.documentElement.classList.add('js');
   /* ---------- hero headline follows the language button ---------- */
   var HL = { en: ['Innovation', 'Beyond', 'Borders'], ko: ['국경을', '넘는', '혁신'] };
   var HL_LABEL = { en: 'Innovation Beyond Borders', ko: '국경을 넘는 혁신' };
-  var hlLines = $$('.hl .t'), capTag = $('#capTag'), hero = $('#top'), heroOn = true, hlLang = 'en';
+  var hlLines = $$('.hl .t'), hero = $('#top'), heroOn = true, hlLang = 'en';
   function setHeadline(l, animate) {
     var from = hlLang; hlLang = l;
     $('.hl').setAttribute('aria-label', HL_LABEL[l]);
-    capTag.textContent = animate && from !== l ? (from === 'en' ? 'ENG' : 'KOR') + ' → ' + (l === 'en' ? 'ENG' : 'KOR') : (l === 'en' ? 'ENG' : 'KOR');
     hlLines.forEach(function (ln, i) {
       ln.lang = l;
       if (animate) decode(ln, HL[l][i], l, { mode: 'full', dur: 700 + i * 180, force: true });
@@ -948,6 +970,7 @@ document.documentElement.classList.add('js');
     pbs.forEach(function (b, i) { b.setAttribute('aria-label', T[l].goto + STARTUPS[i].name); });
     $$('img[data-alt]').forEach(function (im, i) { im.alt = STARTUPS[i].name + T[l].logo; });
     tickCountdown();
+    renderMore();
     if (sheet) renderSaves();
     setActive(cur);
   }
@@ -958,6 +981,13 @@ document.documentElement.classList.add('js');
       setLang(l, true);
       try { localStorage.setItem('kbfg-lang', l); } catch (e) {}
     });
+  });
+
+  function renderMore() { $$('.more').forEach(function (b) { $('.ml', b).textContent = b.getAttribute('aria-expanded') === 'true' ? T[lang].less : T[lang].more; }); }
+  track.addEventListener('click', function (e) {
+    var b = e.target.closest('.more'); if (!b) return;
+    var open = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', String(open)); $('#' + b.getAttribute('aria-controls')).hidden = !open; renderMore();
   });
 
   /* ---------- route: arc draws, then a dot flies ICN → SIN ---------- */
@@ -978,7 +1008,7 @@ document.documentElement.classList.add('js');
 
   /* ---------- countdown to 16 Nov 2026 13:00 SGT (05:00 UTC) ---------- */
   var START = Date.UTC(2026, 10, 16, 5, 0, 0), END = Date.UTC(2026, 10, 16, 9, 0, 0);
-  var cdBox = $('#cd'), cdLive = $('#cdLive'), cdLabel = $('#cdLabel');
+  var pillT = $('#pillT'), cdBox = $('#cd'), cdLive = $('#cdLive'), cdLabel = $('#cdLabel');
   function tickCountdown() {
     var now = Date.now(), t = T[lang];
     if (now < START) {
@@ -986,20 +1016,27 @@ document.documentElement.classList.add('js');
       $('#cdD').textContent = pad(Math.floor(s / 86400)); $('#cdH').textContent = pad(Math.floor(s / 3600) % 24);
       $('#cdM').textContent = pad(Math.floor(s / 60) % 60); $('#cdS').textContent = pad(s % 60);
       cdBox.hidden = false; cdLive.hidden = true; cdLabel.hidden = false; cdLabel.textContent = t['cd.before'];
+      var dd = Math.floor(s / 86400); pillT.textContent = dd > 0 ? 'D-' + dd : 'D-DAY';
     } else {
       cdBox.hidden = true; cdLive.hidden = false; cdLabel.hidden = true;
       $('#cdLiveText').textContent = now < END ? t['cd.live'] : t['cd.after'];
       cdLive.querySelector('.dot').hidden = now >= END;
+      pillT.textContent = '';
+      if (now < END) { pillT.appendChild(el('span', 'live')); pillT.appendChild(document.createTextNode('LIVE')); } else pillT.textContent = '16.11';
     }
   }
   tickCountdown();
   setInterval(tickCountdown, 1000);
 
   /* ---------- deck ---------- */
-  var cur = 0, curEl = $('#cur'), prevB = $('#prev'), nextB = $('#next'), deckSec = $('#deck'), deckOn = false;
+  $$('#odo .dg').forEach(function (d) { for (var k = 0; k < 10; k++) d.appendChild(el('span', null, String(k))); });
+  var cur = 0, shown = -1, odo = $$('#odo .dg'), curEl = $('#cur'), prevB = $('#prev'), nextB = $('#next'), deckSec = $('#deck'), deckOn = false;
   function setActive(i) {
     cur = i;
     curEl.textContent = pad(i + 1);
+    var num = i + 1; [Math.floor(num / 10), num % 10].forEach(function (d, k) { odo[k].style.transform = 'translateY(' + (-0.86 * d) + 'em)'; });
+    if (shown !== i && shown !== -1 && !R) { var sl = slides[i]; sl.classList.remove('wipe'); void sl.offsetWidth; sl.classList.add('wipe'); }
+    shown = i;
     slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
     pbs.forEach(function (b, k) { b.setAttribute('aria-current', String(k === i)); });
     prevB.disabled = i === 0; nextB.disabled = i === N - 1;
@@ -1020,6 +1057,7 @@ document.documentElement.classList.add('js');
       var step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : 1, i = Math.round(track.scrollLeft / step);
       if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) i = N - 1;
       if (i !== cur) setActive(Math.max(0, Math.min(N - 1, i)));
+      if (!R) slides.forEach(function (sl, k) { var off = Math.max(-1, Math.min(1, (sl.offsetLeft - slides[0].offsetLeft - track.scrollLeft) / step)); canvases[k].style.transform = 'translateX(' + (off * 48).toFixed(1) + 'px)'; });
     });
   }, { passive: true });
   prevB.addEventListener('click', function () { goTo(cur - 1, true); });
@@ -1047,7 +1085,14 @@ document.documentElement.classList.add('js');
     if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1, true); }
   });
   var prog = $('#prog'), pt = false;
-  function onScroll() { var h = document.documentElement, max = h.scrollHeight - h.clientHeight; prog.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')'; pt = false; }
+  var mqEl = $('.mq');
+  function onScroll() {
+    var h = document.documentElement, max = h.scrollHeight - h.clientHeight; prog.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+    var p = 1;
+    if (!R) { var top = mqEl.getBoundingClientRect().top; p = Math.max(0, Math.min(1, (innerHeight - top) / (innerHeight * 0.55))); p = 1 - Math.pow(1 - p, 3); }
+    mqEl.style.setProperty('--mx', (34 * (1 - p)).toFixed(2)); mqEl.style.setProperty('--mr', (44 * (1 - p)).toFixed(1));
+    pt = false;
+  }
   addEventListener('scroll', function () { if (!pt) { pt = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
   /* ---------- reveal + count-up (resting state is visible) ---------- */
@@ -1127,6 +1172,25 @@ document.documentElement.classList.add('js');
   $('#copyList').addEventListener('click', function () { copyText(listText(), T[lang].copied); });
   $('#clearList').addEventListener('click', function () { saved = []; persist(); renderSaves(); });
   $('#copyLink').addEventListener('click', function () { copyText(SITE, T[lang].linkCopied); });
+
+  /* ---------- logo roll inside the intro pill ---------- */
+  var roll = $('#roll'), rollImgs = STARTUPS.map(function (s) { return roll.appendChild(el('img', null, null, { src: s.logo, alt: '' })); }), ri = 0, rollOn = false;
+  rollImgs[0].classList.add('on');
+  if (!R) {
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { rollOn = es[0].isIntersecting; }).observe(roll);
+    setInterval(function () {
+      if (!rollOn || document.hidden) return;
+      var a = rollImgs[ri], nx = (ri + 1) % N, b = rollImgs[nx];
+      rollImgs.forEach(function (im) { if (im !== a && im !== b) { im.style.transition = 'none'; im.className = ''; void im.offsetWidth; im.style.transition = ''; } });
+      a.className = 'out'; b.className = 'on'; ri = nx;
+    }, 1700);
+  }
+
+  /* ---------- curtain follows the pointer a little (desktop) ---------- */
+  if (!R && window.matchMedia('(pointer: fine)').matches) {
+    var curts = $$('.curtain');
+    addEventListener('pointermove', function (e) { var v = ((e.clientX / innerWidth) - 0.5) * 40; curts.forEach(function (c) { c.style.setProperty('--px', v.toFixed(1)); }); }, { passive: true });
+  }
 
   /* ---------- start ---------- */
   var initial = 'en';
