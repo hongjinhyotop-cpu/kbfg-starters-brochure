@@ -220,8 +220,7 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 .v-num { font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
 .v-num small { color: var(--muted); font-weight: 500; font-size: 13px; padding-left: 4px; }
 .v-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px #fff; }
-.v-cap { position: absolute; z-index: 2; left: 18px; bottom: 14px; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(13,13,13,.45); }
-html[lang="ko"] .v-cap { letter-spacing: 0; }
+.v-cap { position: absolute; z-index: 2; left: 18px; bottom: 14px; max-width: calc(100% - 36px); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(13,13,13,.55); }
 .info { padding: 24px 20px 26px; display: grid; gap: 16px; align-content: start; min-width: 0; }
 .i-head { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .logo { flex: none; width: 112px; height: 64px; border: 1px solid var(--line); border-radius: 14px; display: grid; place-items: center; background: #fff; }
@@ -268,7 +267,8 @@ html[lang="ko"] .v-cap { letter-spacing: 0; }
   .info { padding: 32px 38px 30px; gap: 14px; }
   .vis { min-height: 380px; }
 }
-.pager { display: flex; gap: 6px; padding-bottom: 72px; }
+.pager { display: flex; gap: 6px; }
+.note { margin: 14px 0 0; padding-bottom: 72px; font-size: 12.5px; color: var(--muted); }
 .pager button { flex: 1; height: 24px; border: 0; background: transparent; padding: 0; cursor: pointer; position: relative; }
 .pager button::after { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 4px; border-radius: 2px; background: #dcdcda; transition: background .3s; }
 .pager button[aria-current="true"]::after { background: var(--ink); }
@@ -446,7 +446,7 @@ body.has-bar .close .inner { padding-bottom: 116px; }
     </div>
   </div>
   <div class="deck" id="track" tabindex="0" aria-label="Startup slides"></div>
-  <div class="gutter"><div class="inner pager" id="pager"></div></div>
+  <div class="gutter"><div class="inner"><div class="pager" id="pager"></div><p class="note" data-i18n="illusNote">Card visuals are illustrations, not actual product screens.</p></div></div>
 </section>
 
 <section class="close gutter" data-ch="04" data-chk="ch.close">
@@ -555,7 +555,7 @@ document.documentElement.classList.add('js');
       lineupT: 'Lineup at a glance', deckE: 'The startups', hint: 'Swipe or use ← → keys',
       visit: 'Visit website', logo: ' logo', prev: 'Previous startup', next: 'Next startup', goto: 'Go to ',
       more: 'Read more', less: 'Show less', offer: 'Key offering', stageL: 'Funding stage', rung0: 'Pre-A', rung1: 'A', rung2: 'B', rung3: 'Pre-IPO',
-      illus: 'Illustrative visual', save: 'Save', saved: 'Saved', 'list.title': 'My shortlist', 'list.copy': 'Copy list', 'list.clear': 'Clear all',
+      illus: 'Illustrative visual', illusNote: 'Card visuals are illustrations, not actual product screens.', save: 'Save', saved: 'Saved', 'list.title': 'My shortlist', 'list.copy': 'Copy list', 'list.clear': 'Clear all',
       'list.view': 'View', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — my shortlist', copied: 'Copied', copyFail: 'Couldn’t copy here',
       cal: 'Add to calendar', copyLink: 'Copy link', linkCopied: 'Link copied', close: 'Close',
       closeT: 'Connect with the teams shaping <em>what’s next.</em>',
@@ -573,7 +573,7 @@ document.documentElement.classList.add('js');
       lineupT: '한눈에 보는 라인업', deckE: '스타트업 소개', hint: '옆으로 넘기거나 ← → 키를 쓰세요',
       visit: '웹사이트 방문', logo: ' 로고', prev: '이전 스타트업', next: '다음 스타트업', goto: '이동: ',
       more: '더 보기', less: '접기', offer: '핵심 제품', stageL: '투자 단계', rung0: '프리A', rung1: 'A', rung2: 'B', rung3: '프리IPO',
-      illus: '이해를 돕는 일러스트', save: '찜하기', saved: '찜함', 'list.title': '내 관심 기업', 'list.copy': '목록 복사', 'list.clear': '모두 지우기',
+      illus: '이해를 돕는 일러스트', illusNote: '카드 그림은 이해를 돕기 위한 일러스트이며 실제 제품 화면이 아닙니다.', save: '찜하기', saved: '찜함', 'list.title': '내 관심 기업', 'list.copy': '목록 복사', 'list.clear': '모두 지우기',
       'list.view': '보기', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — 내 관심 기업', copied: '복사됐어요', copyFail: '여기서는 복사할 수 없어요',
       cal: '캘린더에 추가', copyLink: '링크 복사', linkCopied: '링크가 복사됐어요', close: '닫기',
       closeT: '다음을 만들어 갈 팀들과 <em>연결되세요.</em>',
@@ -625,6 +625,7 @@ document.documentElement.classList.add('js');
   });
 
   /* ---------- build: slides ---------- */
+  var CAP_TXT = { radar: 'Navigation · Port monitoring', face: 'Face · Palm · Liveness', graph: 'Docs → Agent → Actions', chart: 'Data → Strategy → Trade', globe: 'Earth observation · Onboard AI', cctv: 'CCTV · Live analytics', qr: 'QR order → Pay → Settle' };
   var track = $('#track'), pager = $('#pager');
   function arrow(t) { return el('span', 'arr', t, { 'aria-hidden': 'true' }); }
   STARTUPS.forEach(function (s, i) {
@@ -638,7 +639,7 @@ document.documentElement.classList.add('js');
     vt.appendChild(num);
     vt.appendChild(el('span', 'v-dot', null, { 'aria-hidden': 'true' }));
     vis.appendChild(vt);
-    vis.appendChild(el('span', 'v-cap', null, { 'data-i18n': 'illus' }));
+    vis.appendChild(el('span', 'v-cap', CAP_TXT[s.viz]));
     art.appendChild(vis);
 
     var info = el('div', 'info');
@@ -748,25 +749,34 @@ document.documentElement.classList.add('js');
     return { n: n, m: m, rank: rank };
   })();
 
+  function ease(p) { return 1 - Math.pow(1 - p, 3); }
+  function back(p) { var c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); }
+  /* every visual draws inside F, a safe frame that stays clear of the D-shaped edge, the number and the caption */
   var VIZ = {
-    radar: function (x, w, h, t, c) {
-      var cx = w * 0.5, cy = h * 0.56, R = Math.min(w * 0.42, h * 0.42), k, a = t * 1.15;
+    radar: function (x, F, t, c) {
+      var cx = F.cx, cy = F.cy, R = Math.min(F.w, F.h) * 0.5, k, a = t * 1.15;
       x.lineWidth = 1;
       for (k = 1; k <= 4; k++) { x.strokeStyle = ia(0.08 + k * 0.035); x.beginPath(); x.arc(cx, cy, R * k / 4, 0, TAU); x.stroke(); }
       x.strokeStyle = ia(0.1); x.beginPath(); x.moveTo(cx - R, cy); x.lineTo(cx + R, cy); x.moveTo(cx, cy - R); x.lineTo(cx, cy + R); x.stroke();
-      for (k = 0; k < 28; k++) { var a0 = a - k * 0.035; x.fillStyle = rgba(c, 0.3 * (1 - k / 28)); x.beginPath(); x.moveTo(cx, cy); x.arc(cx, cy, R, a0 - 0.037, a0); x.closePath(); x.fill(); }
+      var span = 1.0;
+      if (x.createConicGradient) {
+        var g = x.createConicGradient(a - span, cx, cy);
+        g.addColorStop(0, rgba(c, 0)); g.addColorStop(span / TAU, rgba(c, 0.34)); g.addColorStop(span / TAU + 0.0001, rgba(c, 0)); g.addColorStop(1, rgba(c, 0));
+        x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R, 0, TAU); x.fill();
+      } else {
+        x.fillStyle = rgba(c, 0.18); x.beginPath(); x.moveTo(cx, cy); x.arc(cx, cy, R, a - span * 0.5, a); x.closePath(); x.fill();
+      }
       x.strokeStyle = c; x.lineWidth = 2; x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); x.stroke();
-      [[0.6, 0.72, 'VSL-01'], [2.1, 0.48, 'VSL-02'], [3.4, 0.82, 'BUOY'], [4.25, 0.62, 'VSL-03'], [5.5, 0.36, 'PIER']].forEach(function (b) {
+      [[0.6, 0.72, 'VSL-01'], [2.1, 0.48, 'VSL-02'], [3.4, 0.82, 'BUOY'], [4.25, 0.62, 'VSL-03'], [5.5, 0.38, 'PIER']].forEach(function (b) {
         var d = ((a - b[0]) % TAU + TAU) % TAU, al = Math.max(0, 1 - d / 4.2), px = cx + Math.cos(b[0]) * R * b[1], py = cy + Math.sin(b[0]) * R * b[1];
         x.fillStyle = al > 0.5 ? INK : ia(0.25 + al * 0.6); x.beginPath(); x.arc(px, py, 3.8, 0, TAU); x.fill();
         if (d < 1.2) { x.strokeStyle = rgba(c, 1 - d / 1.2); x.lineWidth = 1.4; x.beginPath(); x.arc(px, py, 4 + d * 16, 0, TAU); x.stroke(); }
         if (al > 0.25) label(x, b[2], px + 8, py - 7, ia((al * 0.85).toFixed(2)));
       });
       x.fillStyle = c; x.beginPath(); x.moveTo(cx, cy - 8); x.lineTo(cx + 5, cy + 6); x.lineTo(cx - 5, cy + 6); x.closePath(); x.fill();
-      label(x, 'NAVIGATION · PORT', w - 18, h - 15, ia(0.55), 'right');
     },
-    face: function (x, w, h, t, c) {
-      var s = Math.min(h * 0.74, w * 1.05), cx = w * 0.5, cy = h * 0.56, ph = (t % 3.6) / 3.6;
+    face: function (x, F, t, c) {
+      var s = Math.min(F.h / 0.84, F.w / 0.64), cx = F.cx, cy = F.cy, ph = (t % 3.6) / 3.6;
       var top = cy - 0.4 * s, bot = cy + 0.4 * s, sy = top + (bot - top) * Math.min(1, ph / 0.72), scanning = ph < 0.72;
       x.lineWidth = 1;
       FACE.E.forEach(function (e) {
@@ -779,19 +789,18 @@ document.documentElement.classList.add('js');
         x.fillStyle = near ? c : ia(0.6); x.beginPath(); x.arc(px, py, near ? 2.8 : 1.5, 0, TAU); x.fill();
       });
       if (scanning) {
-        var g = x.createLinearGradient(0, sy - 34, 0, sy); g.addColorStop(0, rgba(c, 0)); g.addColorStop(1, rgba(c, 0.28));
-        x.fillStyle = g; x.fillRect(cx - 0.36 * s, sy - 34, 0.72 * s, 34);
-        x.strokeStyle = c; x.lineWidth = 2; x.beginPath(); x.moveTo(cx - 0.36 * s, sy); x.lineTo(cx + 0.36 * s, sy); x.stroke();
+        var hw = 0.33 * s, g = x.createLinearGradient(0, sy - 34, 0, sy); g.addColorStop(0, rgba(c, 0)); g.addColorStop(1, rgba(c, 0.28));
+        x.fillStyle = g; x.fillRect(cx - hw, sy - 34, hw * 2, 34);
+        x.strokeStyle = c; x.lineWidth = 2; x.beginPath(); x.moveTo(cx - hw, sy); x.lineTo(cx + hw, sy); x.stroke();
       } else {
-        x.globalAlpha = Math.min(1, (ph - 0.72) / 0.06);
-        chip(x, '✓ VERIFIED · LIVENESS', cx, cy + 0.1 * s, INK, '#fff'); x.globalAlpha = 1;
+        var k = Math.min(1, (ph - 0.72) / 0.08);
+        x.save(); x.translate(cx, cy + 0.1 * s); x.scale(0.85 + 0.15 * back(k), 0.85 + 0.15 * back(k)); chip(x, '✓ VERIFIED · LIVENESS', 0, 0, INK, '#fff'); x.restore();
       }
-      label(x, 'FACE · PALM · LIVENESS', w - 18, h - 15, ia(0.55), 'right');
     },
-    graph: function (x, w, h, t, c) {
-      var top = Math.max(h * 0.3, 80), bot = h * 0.8, hub = [w * 0.5, (top + bot) / 2], D = [], O = [], OL = ['ANSWER', 'AUTOMATE', 'REPORT'], i;
-      for (i = 0; i < 4; i++) D.push([w * 0.16, top + (bot - top) * i / 3]);
-      for (i = 0; i < 3; i++) O.push([w * 0.8, top + (bot - top) * (i * 0.5)]);
+    graph: function (x, F, t, c) {
+      var top = F.y + F.h * 0.1, bot = F.y + F.h * 0.9, hub = [F.cx, (top + bot) / 2], D = [], O = [], OL = ['ANSWER', 'AUTOMATE', 'REPORT'], i;
+      for (i = 0; i < 4; i++) D.push([F.x + 16, top + (bot - top) * i / 3]);
+      for (i = 0; i < 3; i++) O.push([F.x + F.w - 44, top + (bot - top) * (0.12 + i * 0.38)]);
       function pt(a, b, p) { var mx = (a[0] + b[0]) / 2, u = 1 - p; return [u * u * u * a[0] + 3 * u * u * p * mx + 3 * u * p * p * mx + p * p * p * b[0], u * u * u * a[1] + 3 * u * u * p * a[1] + 3 * u * p * p * b[1] + p * p * p * b[1]]; }
       function link(a, b) { var mx = (a[0] + b[0]) / 2; x.beginPath(); x.moveTo(a[0], a[1]); x.bezierCurveTo(mx, a[1], mx, b[1], b[0], b[1]); x.stroke(); }
       x.strokeStyle = ia(0.18); x.lineWidth = 1.2;
@@ -809,26 +818,24 @@ document.documentElement.classList.add('js');
         x.strokeStyle = INK; x.lineWidth = 1.3; x.stroke();
         x.fillStyle = INK; x.textAlign = 'center'; x.fillText(OL[k], o[0], o[1] + 3.5);
       });
-      label(x, 'DOCS → AGENT → ACTIONS', w - 18, h - 15, ia(0.55), 'right');
     },
-    chart: function (x, w, h, t, c) {
-      var L = 18, Rr = w - 18, T0 = Math.max(h * 0.3, 80), B0 = h - 48, i, p, n0 = WALK.length;
+    chart: function (x, F, t, c) {
+      var L = F.x, Rr = F.x + F.w, T0 = F.y + F.h * 0.06, B0 = F.y + F.h * 0.78, VB = F.y + F.h, i, p, n0 = WALK.length;
       x.strokeStyle = ia(0.08); x.lineWidth = 1;
       for (i = 0; i <= 4; i++) { var gy = T0 + (B0 - T0) * i / 4; x.beginPath(); x.moveTo(L, gy); x.lineTo(Rr, gy); x.stroke(); }
       var ph = Math.min(1, (t % 6.5) / 5), n = Math.max(2, Math.floor(n0 * ph)), sx = (Rr - L) / (n0 - 1);
       function P(k) { return [L + k * sx, B0 - (B0 - T0) * WALK[k]]; }
-      for (i = 0; i < n; i += 2) { var bh = 5 + ((i * 37) % 15); x.fillStyle = rgba(c, 0.35); x.fillRect(L + i * sx - 1.5, h - 32 - bh, 3, bh); }
+      for (i = 0; i < n; i += 2) { var bh = (VB - B0 - 8) * (0.35 + ((i * 37) % 15) / 24); x.fillStyle = rgba(c, 0.35); x.fillRect(L + i * sx - 1.5, VB - bh, 3, bh); }
       var g = x.createLinearGradient(0, T0, 0, B0); g.addColorStop(0, rgba(c, 0.32)); g.addColorStop(1, rgba(c, 0));
       x.beginPath(); x.moveTo(P(0)[0], B0); for (i = 0; i < n; i++) { p = P(i); x.lineTo(p[0], p[1]); } x.lineTo(P(n - 1)[0], B0); x.closePath(); x.fillStyle = g; x.fill();
       x.beginPath(); for (i = 0; i < n; i++) { p = P(i); if (i) x.lineTo(p[0], p[1]); else x.moveTo(p[0], p[1]); } x.strokeStyle = INK; x.lineWidth = 2; x.lineJoin = 'round'; x.stroke();
       var ey = P(0)[1]; x.setLineDash([4, 5]); x.strokeStyle = ia(0.35); x.lineWidth = 1; x.beginPath(); x.moveTo(L, ey); x.lineTo(Rr, ey); x.stroke(); x.setLineDash([]);
-      label(x, 'ENTRY', Rr, ey + 14, ia(0.5), 'right');
+      label(x, 'ENTRY', Rr, ey - 6, ia(0.5), 'right');
       var hd = P(n - 1); x.fillStyle = rgba(c, 0.3); x.beginPath(); x.arc(hd[0], hd[1], 10 + Math.sin(t * 4) * 2, 0, TAU); x.fill();
       x.fillStyle = c; x.beginPath(); x.arc(hd[0], hd[1], 4.2, 0, TAU); x.fill();
-      label(x, 'DATA → STRATEGY → TRADE', w - 18, h - 15, ia(0.55), 'right');
     },
-    globe: function (x, w, h, t, c) {
-      var cx = w * 0.5, cy = h * 0.58, R = Math.min(w * 0.3, h * 0.32), k;
+    globe: function (x, F, t, c) {
+      var cx = F.cx, cy = F.cy, R = Math.min(F.w / 3.3, F.h / 2.3), k;
       var g = x.createRadialGradient(cx - R * 0.4, cy - R * 0.45, R * 0.1, cx, cy, R);
       g.addColorStop(0, '#ffffff'); g.addColorStop(1, rgba(c, 0.2));
       x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R, 0, TAU); x.fill();
@@ -849,44 +856,52 @@ document.documentElement.classList.add('js');
       x.globalAlpha = front ? 1 : 0.35;
       x.fillStyle = INK; x.fillRect(sx - 4, sy - 3, 8, 6); x.fillStyle = c; x.fillRect(sx - 15, sy - 2, 9, 4); x.fillRect(sx + 6, sy - 2, 9, 4);
       x.globalAlpha = 1; x.restore();
-      label(x, 'EO · ONBOARD AI', w - 18, h - 15, ia(0.55), 'right');
     },
-    cctv: function (x, w, h, t, c) {
-      var vx = w * 0.5, vy = h * 0.4, k;
-      for (k = 0; k < h; k += 3) { x.fillStyle = ia(0.025); x.fillRect(0, k, w, 1); }
+    cctv: function (x, F, t, c) {
+      var M = { x: F.x, y: F.y, w: F.w, h: Math.min(F.h, F.w * 0.95) }; M.y = F.cy - M.h / 2;
+      x.fillStyle = 'rgba(255,255,255,.55)'; rr(x, M.x, M.y, M.w, M.h, 16); x.fill(); x.strokeStyle = ia(0.22); x.lineWidth = 1.2; x.stroke();
+      x.save(); rr(x, M.x, M.y, M.w, M.h, 16); x.clip();
+      var k, hz = M.y + M.h * 0.42, vx = M.x + M.w / 2;
+      for (k = 0; k < M.h; k += 3) { x.fillStyle = ia(0.025); x.fillRect(M.x, M.y + k, M.w, 1); }
       x.strokeStyle = ia(0.1); x.lineWidth = 1;
-      for (k = -6; k <= 6; k++) { x.beginPath(); x.moveTo(vx, vy); x.lineTo(vx + k * w * 0.17, h); x.stroke(); }
-      for (k = 1; k < 7; k++) { var yy = vy + (h - vy) * Math.pow(k / 7, 1.8); x.beginPath(); x.moveTo(0, yy); x.lineTo(w, yy); x.stroke(); }
-      [[0.08, 0.9, 0.6], [0.32, 0.7, 0.9], [0.58, 0.56, 1.3]].forEach(function (p, i) {
-        var yy = vy + (h - vy) * p[1], sc = p[1] * 1.05, px = (((p[0] + t * 0.025 * p[2]) % 1.2) - 0.1) * w;
+      for (k = -7; k <= 7; k++) { x.beginPath(); x.moveTo(vx, hz); x.lineTo(vx + k * M.w * 0.16, M.y + M.h); x.stroke(); }
+      for (k = 1; k < 7; k++) { var yy = hz + (M.y + M.h - hz) * Math.pow(k / 7, 1.8); x.beginPath(); x.moveTo(M.x, yy); x.lineTo(M.x + M.w, yy); x.stroke(); }
+      var floor = function (d) { return hz + (M.y + M.h - hz) * d; };
+      [[0.05, 0.86, 0.55], [0.35, 0.62, 0.8], [0.7, 0.74, 0.65]].forEach(function (p, i) {
+        var yy = floor(p[1]), sc = p[1] * Math.min(1.1, M.h / 300), px = M.x + (((p[0] + t * 0.03 * p[2]) % 1.2) - 0.1) * M.w;
         x.fillStyle = ia(0.5); x.beginPath(); x.arc(px, yy - 46 * sc, 6 * sc, 0, TAU); x.fill(); rr(x, px - 7 * sc, yy - 38 * sc, 14 * sc, 38 * sc, 5 * sc); x.fill();
-        if (i === 1) boxed(x, px - 13 * sc, yy - 56 * sc, 26 * sc, 58 * sc, INK, 'PERSON');
+        if (i === 0) boxed(x, px - 13 * sc, yy - 56 * sc, 26 * sc, 58 * sc, INK, 'PERSON');
       });
-      var fx = w * 0.76, fy = vy + (h - vy) * 0.72;
-      for (k = 0; k < 5; k++) { var fl = 10 + Math.sin(t * 9 + k * 1.7) * 4 + (k === 2 ? 8 : k % 2 * 3); x.fillStyle = k % 2 ? 'rgba(255,160,40,.95)' : 'rgba(235,70,40,.9)'; x.beginPath(); x.moveTo(fx - 13 + k * 6.5, fy); x.lineTo(fx - 9.5 + k * 6.5, fy - fl); x.lineTo(fx - 6 + k * 6.5, fy); x.closePath(); x.fill(); }
+      var fx = vx + M.w * 0.04, fy = floor(0.48);
+      for (k = 0; k < 5; k++) { var fl = 12 + Math.sin(t * 9 + k * 1.7) * 4 + (k === 2 ? 9 : k % 2 * 3); x.fillStyle = k % 2 ? 'rgba(255,160,40,.95)' : 'rgba(235,70,40,.9)'; x.beginPath(); x.moveTo(fx - 14 + k * 7, fy); x.lineTo(fx - 10.5 + k * 7, fy - fl); x.lineTo(fx - 7 + k * 7, fy); x.closePath(); x.fill(); }
       var ph = (t % 4) / 4;
-      if (ph > 0.22 && (ph > 0.4 || Math.floor(t * 8) % 2)) boxed(x, fx - 22, fy - 30, 44, 36, c, 'FIRE DETECTED', true);
-      var d = new Date(), ts = 'CAM 03 · ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
-      label(x, ts, w - 18, h - 15, ia(0.7), 'right');
-      if (Math.floor(t * 1.4) % 2) { x.fillStyle = '#e5383b'; x.beginPath(); x.arc(w - 18 - x.measureText(ts).width - 12, h - 18.5, 4, 0, TAU); x.fill(); }
+      if (ph > 0.22 && (ph > 0.4 || Math.floor(t * 8) % 2)) boxed(x, fx - 24, fy - 34, 48, 40, c, 'FIRE DETECTED', true);
+      x.restore();
+      var bl = 14, cs = [[M.x + 8, M.y + 8, 1, 1], [M.x + M.w - 8, M.y + 8, -1, 1], [M.x + 8, M.y + M.h - 8, 1, -1], [M.x + M.w - 8, M.y + M.h - 8, -1, -1]];
+      x.strokeStyle = ia(0.6); x.lineWidth = 2; cs.forEach(function (q) { x.beginPath(); x.moveTo(q[0] + q[2] * bl, q[1]); x.lineTo(q[0], q[1]); x.lineTo(q[0], q[1] + q[3] * bl); x.stroke(); });
+      var d = new Date(), ts = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      if (Math.floor(t * 1.4) % 2) { x.fillStyle = '#e5383b'; x.beginPath(); x.arc(M.x + 22, M.y + 24, 4, 0, TAU); x.fill(); }
+      label(x, 'REC · CAM 03', M.x + 31, M.y + 27.5, ia(0.75), 'left', 700);
+      label(x, ts, M.x + M.w - 20, M.y + 27.5, ia(0.75), 'right', 700);
     },
-    qr: function (x, w, h, t, c) {
-      var S = Math.min(w * 0.44, h * 0.5), cx = w * 0.5, cy = h * 0.56, n = QR.n, cell = S / n, ox = cx - S / 2, oy = cy - S / 2, i;
+    qr: function (x, F, t, c) {
+      var S = Math.min(F.w, F.h) * 0.66, cx = F.cx, cy = F.cy, n = QR.n, cell = S / n, ox = cx - S / 2, oy = cy - S / 2, i;
       var ph = (t % 5) / 5, build = Math.min(1, ph / 0.45);
       x.fillStyle = '#fff'; rr(x, ox - 12, oy - 12, S + 24, S + 24, 14); x.fill(); x.strokeStyle = ia(0.12); x.lineWidth = 1; x.stroke();
       x.fillStyle = INK;
       for (i = 0; i < n * n; i++) if (QR.m[i] && QR.rank[i] <= build) x.fillRect(ox + (i % n) * cell, oy + Math.floor(i / n) * cell, cell + 0.4, cell + 0.4);
       if (ph > 0.45 && ph < 0.62) { var sp = (ph - 0.45) / 0.17; x.fillStyle = c; x.fillRect(ox - 20, oy - 12 + (S + 24) * sp - 1.5, S + 40, 3); }
       if (ph >= 0.62) {
-        var k = Math.min(1, (ph - 0.62) / 0.08);
+        var k = Math.min(1, (ph - 0.62) / 0.07);
+        x.fillStyle = 'rgba(255,255,255,' + (0.82 * Math.min(1, k * 2)) + ')'; rr(x, ox - 12, oy - 12, S + 24, S + 24, 14); x.fill();
         x.strokeStyle = rgba(c, (1 - k) * 0.9); x.lineWidth = 2; rr(x, ox - 12 - k * 16, oy - 12 - k * 16, S + 24 + k * 32, S + 24 + k * 32, 14 + k * 8); x.stroke();
-        x.globalAlpha = k; chip(x, '✓ PAID · ORDER SENT', cx, cy, c, '#fff'); x.globalAlpha = 1;
+        var sc = 0.6 + 0.4 * back(k);
+        x.save(); x.translate(cx, cy); x.scale(sc, sc); chip(x, '✓ PAID · ORDER SENT', 0, 0, c, '#fff'); x.restore();
       }
-      label(x, 'QR ORDER → PAY → SETTLE', w - 18, h - 15, ia(0.55), 'right');
     }
   };
   var STATIC = { radar: 2.3, face: 3.2, graph: 1.3, chart: 5.2, globe: 1.0, cctv: 2.6, qr: 3.7 };
-  var ctxs = [], dims = [];
+  var ctxs = [], dims = [], DSHAPE = window.matchMedia('(min-width: 900px)');
   function sizeCanvas(i) {
     var cv = canvases[i], W = Math.max(1, cv.clientWidth), H = Math.max(1, cv.clientHeight), dpr = Math.min(2, window.devicePixelRatio || 1);
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -896,7 +911,12 @@ document.documentElement.classList.add('js');
     var x = ctxs[i]; if (!x) return;
     var d = dims[i], s = STARTUPS[i];
     x.clearRect(0, 0, d[0], d[1]); x.save();
-    try { VIZ[s.viz](x, d[0], d[1], t, s.c); } catch (e) {}
+    var w = d[0], h = d[1], F;
+    if (DSHAPE.matches) F = { x: w * 0.07, y: Math.max(64, h * 0.15), w: w * 0.7 };
+    else F = { x: 20, y: 54, w: w - 40 };
+    F.h = DSHAPE.matches ? h - F.y - Math.max(48, h * 0.13) : h - F.y - 36;
+    F.cx = F.x + F.w / 2; F.cy = F.y + F.h / 2;
+    try { VIZ[s.viz](x, F, t, s.c); } catch (e) {}
     x.restore();
   }
   function drawStatics() { canvases.forEach(function (_, i) { sizeCanvas(i); drawViz(i, STATIC[STARTUPS[i].viz]); }); }
