@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KBFG Starters Program</title>
+<meta name="description" content="Online brochure for the KBFG Starters Program | Tenity Lab Crawl, 16 November 2026, Singapore: seven Korean startups.">
+<meta property="og:title" content="KBFG Starters Program | Tenity Lab Crawl">
+<meta property="og:description" content="Online brochure for the KBFG Starters Program | Tenity Lab Crawl, 16 November 2026, Singapore: seven Korean startups.">
+<meta property="og:image" content="assets/poster.jpg">
+<meta name="theme-color" content="#0d1822">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: the poster's dusk-navy band on top (poster, date, venue), then a light reading area:
+   intro, an at-a-glance table that jumps to each card, seven startup cards, dark footer.
+   Single deliberate look taken from the event poster, so colors are set explicitly for both host themes. */
+:root {
+  --night: #0d1822;
+  --night-2: #16242f;
+  --on-night: #eef2f5;
+  --on-night-muted: #a7b4bf;
+  --coral: #ff4d6a;
+  --coral-ink: #d92f4e;
+  --paper: #f5f6f8;
+  --card: #ffffff;
+  --ink: #131d26;
+  --muted: #5b6874;
+  --line: #dfe4e9;
+  --tint: #fff0f2;
+  --font-display: "Instrument Sans", "IBM Plex Sans KR", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans KR", "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--night);
+  z-index: 20;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.inner { max-width: 1040px; margin-inline: auto; }
+
+/* Top bar */
+.bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--night);
+  color: var(--on-night);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.bar .inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+.bar-brand { font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.bar-brand span { color: var(--on-night-muted); font-weight: 500; padding-inline: 6px; }
+.lang { display: inline-flex; flex: none; padding: 3px; border-radius: 999px; background: var(--night-2); border: 1px solid rgba(255,255,255,0.12); }
+.lang button {
+  font: 600 13px/1 var(--font-body);
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--on-night-muted);
+  cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--coral); color: #fff; }
+
+/* Hero */
+.hero { background: var(--night); color: var(--on-night); }
+.hero .inner { display: flex; flex-direction: column; gap: 20px; padding-block: 20px 36px; }
+.poster { width: 100%; height: auto; aspect-ratio: 16 / 9; max-width: 100%; object-fit: cover; border-radius: 12px; background: var(--night-2); }
+.facts { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 24px; }
+.facts dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; }
+.facts dt { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); padding-top: 3px; }
+.facts dd { margin: 0; font-size: 16px; min-width: 0; }
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 20px;
+  border: 1.5px solid var(--coral);
+  border-radius: 999px;
+  color: var(--on-night);
+  font-weight: 600; font-size: 15px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.cta:hover { background: rgba(255,77,106,0.16); }
+
+/* Sections */
+main .inner { display: flex; flex-direction: column; }
+.intro { padding-block: 44px 28px; display: flex; flex-direction: column; gap: 12px; }
+.rule { width: 36px; height: 3px; background: var(--coral); border-radius: 2px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); margin: 0; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+.sub { font-size: 18px; font-weight: 500; margin: 0; text-wrap: balance; }
+.lede { margin: 0; max-width: 66ch; color: var(--muted); }
+
+/* At a glance */
+.glance { padding-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
+.glance h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0; }
+.table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td a { font-weight: 600; text-decoration: none; display: inline-flex; gap: 6px; align-items: baseline; white-space: nowrap; }
+@media (max-width: 480px) { table { font-size: 13px; } th, td { padding: 10px 10px; } }
+td a::after { content: "↓"; color: var(--coral-ink); font-size: 12px; }
+td a:hover { color: var(--coral-ink); }
+td.stage-cell { white-space: nowrap; font-family: var(--font-mono); font-size: 13px; }
+td.empty { color: var(--muted); }
+
+/* Cards */
+.cards { list-style: none; margin: 0; padding: 0 0 56px; display: flex; flex-direction: column; gap: 14px; }
+.card {
+  scroll-margin-top: calc(70px + env(safe-area-inset-top, 0px));
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+.card:target { border-color: var(--coral); box-shadow: 0 0 0 3px var(--tint); }
+.who { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.who-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.logo { width: 128px; height: 72px; padding: 8px; border: 1px solid var(--line); border-radius: 10px; background: #fff; display: grid; place-items: center; flex: none; }
+.logo img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.stage { font-family: var(--font-mono); font-size: 12px; color: var(--coral-ink); border: 1.5px solid var(--coral); border-radius: 999px; padding: 3px 11px; white-space: nowrap; }
+.name { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 4px 0 0; }
+.sector { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.what { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tagline { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0; text-wrap: balance; }
+.desc { margin: 0; color: #2e3a45; }
+.tags { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li { font-size: 12.5px; padding: 4px 10px; border-radius: 6px; background: var(--paper); color: var(--muted); }
+.visit { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 4px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+.visit:hover { background: var(--coral-ink); }
+.visit small { font-weight: 400; color: #c3ccd4; font-size: 12.5px; }
+
+@media (min-width: 760px) {
+  .card { grid-template-columns: 230px minmax(0, 1fr); gap: 28px; padding: 26px 28px; }
+  .who { border-right: 1px solid var(--line); padding-right: 24px; }
+  .who-top { flex-direction: column; align-items: flex-start; }
+  .who-top .stage { order: 3; }
+  .who { gap: 8px; }
+}
+
+/* Footer */
+footer { background: var(--night); color: var(--on-night); }
+footer .inner { padding-block: 36px 44px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
+.foot-title { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25; margin: 0; max-width: 22ch; text-wrap: balance; }
+.foot-meta { margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--on-night-muted); }
+.foot-meta strong { color: var(--on-night); font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="bar gutter">
+  <div class="inner">
+    <div class="bar-brand">Tenity<span>×</span>KB Financial Group</div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="btn-en" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" id="btn-ko" data-lang="ko" aria-pressed="false">한국어</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero gutter">
+  <div class="inner">
+    <h1 class="sr-only">KBFG Starters Program | Tenity Lab Crawl: Innovation Beyond Borders</h1>
+    <img class="poster" src="assets/poster.jpg" width="1600" height="900"
+         alt="KBFG Starters Program | Tenity Lab Crawl. Singapore and Korea. Innovation Beyond Borders. Tenity and KB Financial Group, supported by Singapore Global Network.">
+    <div class="facts">
+      <dl>
+        <dt data-i18n="dateLabel">Date</dt>
+        <dd data-i18n="date">Monday, 16 November 2026 · 13:00–17:00 SGT</dd>
+        <dt data-i18n="venueLabel">Venue</dt>
+        <dd>OGBC, Plus, Singapore</dd>
+      </dl>
+      <a class="cta" href="#startups" data-i18n="cta">Explore the startups ↓</a>
+    </div>
+  </div>
+</section>
+
+<main class="gutter">
+  <div class="inner">
+    <section class="intro" id="startups">
+      <div class="rule" aria-hidden="true"></div>
+      <p class="eyebrow">Innovation Beyond Borders</p>
+      <h2 data-i18n="meet">Meet the Startups</h2>
+      <p class="sub" data-i18n="sub">Seven Korean startups. New possibilities across borders.</p>
+      <p class="lede" data-i18n="lede">Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.</p>
+    </section>
+
+    <section class="glance" aria-labelledby="glance-title">
+      <h3 id="glance-title" data-i18n="glance">At a glance</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th data-i18n="thCompany">Company</th><th data-i18n="thSector">Sector</th><th data-i18n="thStage">Funding stage</th></tr>
+          </thead>
+          <tbody id="glance-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <ol class="cards" id="cards"></ol>
+  </div>
+</main>
+
+<footer class="gutter">
+  <div class="inner">
+    <p class="foot-title" data-i18n="footTitle">Connect with the teams shaping what's next.</p>
+    <div class="foot-meta">
+      <span><strong>Tenity × KB Financial Group</strong></span>
+      <span data-i18n="supported">Supported by Singapore Global Network</span>
+      <span data-i18n="footDate">16 November 2026 · OGBC, Plus, Singapore</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- Content. Edit here. Leave stage empty ("") to hide the badge. ----
+var STARTUPS = [
+  {
+    id: "seadronix", name: "Seadronix", logo: "assets/logos/seadronix.jpg",
+    url: "https://seadronix.com", stage: { en: "Series B", ko: "시리즈B" },
+    sector: { en: "Maritime AI", ko: "해양 AI" },
+    tagline: { en: "AI for safer seas and smarter ports.", ko: "더 안전한 바다와 더 똑똑한 항만을 위한 AI." },
+    desc: {
+      en: "Seadronix develops AI-powered navigation assistance and port monitoring solutions. Combining computer vision and sensor fusion, its NAVISS and AVISS product families help vessel crews and port operators understand their surroundings and support safer maritime operations.",
+      ko: "Seadronix는 AI 기반 항해 보조 및 항만 모니터링 솔루션을 개발합니다. 컴퓨터 비전과 센서 퓨전을 결합한 NAVISS·AVISS 제품군은 선박 승무원과 항만 운영자가 주변 상황을 파악하도록 도와, 더 안전한 해양 운영을 지원합니다."
+    },
+    tags: { en: ["Maritime AI", "Autonomous Navigation", "Port Monitoring"], ko: ["해양 AI", "자율운항", "항만 모니터링"] }
+  },
+  {
+    id: "universe-ai", name: "Universe AI", logo: "assets/logos/universe-ai.jpg",
+    url: "https://univs.ai", stage: null,
+    sector: { en: "Biometrics & Digital Identity", ko: "생체인증·디지털 신원확인" },
+    tagline: { en: "Seamless identity verification through biometrics.", ko: "생체인증으로 끊김 없는 신원확인." },
+    desc: {
+      en: "Universe AI develops biometric authentication technology for payments, access control, and digital services. Its GATE platform brings together face and palm authentication with liveness detection, enabling businesses to integrate identity verification into their existing systems.",
+      ko: "Universe AI는 결제, 출입 통제, 디지털 서비스를 위한 생체인증 기술을 개발합니다. GATE 플랫폼은 얼굴·손바닥 인증과 위조 방지(라이브니스) 감지를 결합해, 기업이 기존 시스템에 신원확인 기능을 연동할 수 있게 합니다."
+    },
+    tags: { en: ["Biometrics", "Identity Verification", "Face Payments"], ko: ["생체인증", "신원확인", "얼굴 결제"] }
+  },
+  {
+    id: "sionic-ai", name: "Sionic AI", logo: "assets/logos/sionic-ai.jpg",
+    url: "https://sionic.ai", stage: { en: "Series A", ko: "시리즈A" },
+    sector: { en: "Enterprise AI & AI Agents", ko: "기업용 AI·AI 에이전트" },
+    tagline: { en: "Turn enterprise knowledge into AI-powered action.", ko: "기업의 지식을 AI가 움직이는 업무로." },
+    desc: {
+      en: "Sionic AI helps organisations build and deploy AI agents through its STORM platform. Combining document processing, enterprise knowledge retrieval, and workflow automation, it enables teams to put company data to work across customer support and internal operations.",
+      ko: "Sionic AI는 STORM 플랫폼으로 기업이 AI 에이전트를 구축하고 배포하도록 돕습니다. 문서 처리, 사내 지식 검색, 업무 자동화를 결합해 고객 지원부터 내부 운영까지 회사 데이터를 실제 업무에 활용할 수 있게 합니다."
+    },
+    tags: { en: ["Enterprise AI", "AI Agents", "Document Intelligence"], ko: ["기업용 AI", "AI 에이전트", "문서 인텔리전스"] }
+  },
+  {
+    id: "metalogos", name: "metaLogos", logo: "assets/logos/metalogos.jpg",
+    url: "https://metalogos.ai", stage: { en: "Pre-Series A", ko: "프리시리즈A" },
+    sector: { en: "WealthTech & AI Investing", ko: "웰스테크·AI 투자" },
+    tagline: { en: "Making systematic investing more accessible.", ko: "체계적인 투자를 더 쉽게." },
+    desc: {
+      en: "metaLogos develops investment services powered by financial data and quantitative analysis. Its products include 160, which simplifies IPO investing, and MyStockPlan, which supports stock selection and trading based on predefined investment strategies.",
+      ko: "metaLogos는 금융 데이터와 퀀트 분석 기반의 투자 서비스를 개발합니다. 공모주 투자를 간편하게 만든 '일육공(160)'과, 미리 정한 투자 전략에 따라 종목 선정과 매매를 돕는 'MyStockPlan'을 운영합니다."
+    },
+    tags: { en: ["WealthTech", "Quantitative Investing", "Investment Automation"], ko: ["웰스테크", "퀀트 투자", "투자 자동화"] }
+  },
+  {
+    id: "telepix", name: "TelePIX", logo: "assets/logos/telepix.jpg",
+    url: "https://telepix.ai", stage: { en: "Pre-IPO", ko: "프리IPO" },
+    sector: { en: "SpaceTech & Geospatial AI", ko: "우주기술·지리공간 AI" },
+    tagline: { en: "From satellite imagery to actionable intelligence.", ko: "위성 영상을 바로 쓸 수 있는 인사이트로." },
+    desc: {
+      en: "TelePIX delivers satellite solutions spanning imaging payloads, onboard processing, and AI-powered image analytics. Its technology transforms Earth observation data into insights that help organisations monitor change and make informed decisions.",
+      ko: "TelePIX는 영상 탑재체, 위성 내 데이터 처리, AI 영상 분석을 아우르는 위성 솔루션을 제공합니다. 지구 관측 데이터를 인사이트로 바꿔, 조직이 변화를 모니터링하고 근거 있는 결정을 내리도록 돕습니다."
+    },
+    tags: { en: ["SpaceTech", "Earth Observation", "Geospatial AI"], ko: ["우주기술", "지구 관측", "지리공간 AI"] }
+  },
+  {
+    id: "pia-space", name: "PIA Space", logo: "assets/logos/pia-space.jpg",
+    url: "https://www.pia.space", stage: { en: "Series A", ko: "시리즈A" },
+    sector: { en: "Video Intelligence & Safety", ko: "영상 인텔리전스·안전" },
+    tagline: { en: "Turn existing cameras into intelligent safety systems.", ko: "기존 카메라를 지능형 안전 시스템으로." },
+    desc: {
+      en: "PIA Space develops AI video analytics that help operators detect and respond to safety incidents. Its MACS solution analyses existing CCTV footage to identify events such as fire, falls, and violence, supporting monitoring across public spaces, facilities, and industrial sites.",
+      ko: "PIA Space는 운영자가 안전사고를 감지하고 대응하도록 돕는 AI 영상 분석 기술을 개발합니다. MACS 솔루션은 기존 CCTV 영상을 분석해 화재, 쓰러짐, 폭력 같은 상황을 감지하며, 공공장소·시설·산업 현장의 모니터링을 지원합니다."
+    },
+    tags: { en: ["Video AI", "Safety Monitoring", "Smart Infrastructure"], ko: ["영상 AI", "안전 모니터링", "스마트 인프라"] }
+  },
+  {
+    id: "softment", name: "Softment", logo: "assets/logos/softment.jpg",
+    url: "https://www.softment.co.kr", stage: { en: "Series A", ko: "시리즈A" },
+    sector: { en: "Payments & Merchant Technology", ko: "결제·가맹점 기술" },
+    tagline: { en: "Connecting ordering, payments, and merchant operations.", ko: "주문, 결제, 매장 운영을 하나로." },
+    desc: {
+      en: "Softment provides payment infrastructure and merchant solutions, including its Tablero QR ordering service. Combining smart ordering with payment processing capabilities, it helps businesses streamline customer transactions and day-to-day operations.",
+      ko: "Softment는 결제 인프라와 QR 주문 서비스 'Tablero(테이블로)' 등 가맹점 솔루션을 제공합니다. 스마트 주문과 결제 처리 기능을 결합해 고객 거래와 일상적인 매장 운영을 간소화합니다."
+    },
+    tags: { en: ["Payments", "QR Ordering", "Merchant Solutions"], ko: ["결제", "QR 주문", "가맹점 솔루션"] }
+  }
+];
+
+var TEXT = {
+  en: {
+    dateLabel: "Date", venueLabel: "Venue",
+    date: "Monday, 16 November 2026 · 13:00–17:00 SGT",
+    cta: "Explore the startups ↓",
+    meet: "Meet the Startups",
+    sub: "Seven Korean startups. New possibilities across borders.",
+    lede: "Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.",
+    glance: "At a glance", thCompany: "Company", thSector: "Sector", thStage: "Funding stage",
+    visit: "Visit website",
+    logoAlt: " logo",
+    footTitle: "Connect with the teams shaping what's next.",
+    supported: "Supported by Singapore Global Network",
+    footDate: "16 November 2026 · OGBC, Plus, Singapore"
+  },
+  ko: {
+    dateLabel: "일시", venueLabel: "장소",
+    date: "2026년 11월 16일 (월) · 13:00–17:00 (싱가포르 시간)",
+    cta: "참가 스타트업 보기 ↓",
+    meet: "참가 스타트업",
+    sub: "한국 스타트업 7곳, 국경을 넘는 새로운 가능성.",
+    lede: "해양 인텔리전스, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 분석, 영상 인텔리전스, 결제 분야에서 혁신을 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르와 아시아 지역에서의 협업 기회를 찾아보세요.",
+    glance: "한눈에 보기", thCompany: "회사", thSector: "분야", thStage: "투자 단계",
+    visit: "웹사이트 방문",
+    logoAlt: " 로고",
+    footTitle: "다음을 만들어 갈 팀들과 연결되세요.",
+    supported: "후원: Singapore Global Network",
+    footDate: "2026년 11월 16일 · OGBC, Plus, Singapore"
+  }
+};
+
+var lang = "en";
+
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function host(u) { return u.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, ""); }
+
+function render() {
+  var t = TEXT[lang];
+  document.documentElement.lang = lang;
+  document.getElementById("btn-en").setAttribute("aria-pressed", String(lang === "en"));
+  document.getElementById("btn-ko").setAttribute("aria-pressed", String(lang === "ko"));
+  document.querySelectorAll("[data-i18n]").forEach(function (n) {
+    var k = n.getAttribute("data-i18n");
+    if (t[k] != null) n.textContent = t[k];
+  });
+
+  var rows = document.getElementById("glance-rows");
+  rows.textContent = "";
+  STARTUPS.forEach(function (s) {
+    var tr = el("tr");
+    var c1 = el("td"); var a = el("a", null, s.name); a.href = "#" + s.id; c1.appendChild(a);
+    var c2 = el("td", null, s.sector[lang]);
+    var c3 = s.stage ? el("td", "stage-cell", s.stage[lang]) : el("td", "stage-cell empty", "—");
+    tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3);
+    rows.appendChild(tr);
+  });
+
+  var list = document.getElementById("cards");
+  list.textContent = "";
+  STARTUPS.forEach(function (s) {
+    var li = el("li", "card"); li.id = s.id;
+
+    var who = el("div", "who");
+    var top = el("div", "who-top");
+    var box = el("div", "logo");
+    var img = el("img"); img.src = s.logo; img.alt = s.name + t.logoAlt;
+    img.onerror = function () { box.textContent = s.name; };
+    box.appendChild(img);
+    top.appendChild(box);
+    if (s.stage) top.appendChild(el("span", "stage", s.stage[lang]));
+    who.appendChild(top);
+    who.appendChild(el("h3", "name", s.name));
+    who.appendChild(el("p", "sector", s.sector[lang]));
+
+    var what = el("div", "what");
+    what.appendChild(el("p", "tagline", s.tagline[lang]));
+    what.appendChild(el("p", "desc", s.desc[lang]));
+    var tags = el("ul", "tags");
+    s.tags[lang].forEach(function (x) { tags.appendChild(el("li", null, x)); });
+    what.appendChild(tags);
+    if (s.url) {
+      var v = el("a", "visit");
+      v.href = s.url; v.target = "_blank"; v.rel = "noopener noreferrer";
+      v.appendChild(document.createTextNode(t.visit + " ↗ "));
+      v.appendChild(el("small", null, host(s.url)));
+      what.appendChild(v);
+    }
+
+    li.appendChild(who); li.appendChild(what);
+    list.appendChild(li);
+  });
+}
+
+document.querySelector(".lang").addEventListener("click", function (e) {
+  var b = e.target.closest("button[data-lang]");
+  if (!b || b.getAttribute("data-lang") === lang) return;
+  lang = b.getAttribute("data-lang");
+  try { localStorage.setItem("kbfg-lang", lang); } catch (err) {}
+  render();
+});
+
+try { var saved = localStorage.getItem("kbfg-lang"); if (saved === "ko" || saved === "en") lang = saved; } catch (err) {}
+render();
+</script>
+</body>
+</html>
