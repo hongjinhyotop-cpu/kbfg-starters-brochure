@@ -385,7 +385,7 @@ body.has-bar .close .inner { padding-bottom: 116px; }
         </svg>
       </div>
       <div>
-        <p class="card-lbl lbl-sm" id="cdLabel" data-i18n="cd.before" style="margin-bottom:10px">Doors open in</p>
+        <p class="card-lbl lbl-sm" id="cdLabel" data-i18n="cd.before" style="margin-bottom:10px">Event starts in</p>
         <div class="cd" id="cd">
           <div><b id="cdD">--</b><small data-i18n="cd.d">Days</small></div>
           <div><b id="cdH">--</b><small data-i18n="cd.h">Hrs</small></div>
@@ -499,21 +499,21 @@ document.documentElement.classList.add('js');
     { id: 'seadronix', c: '#2f6fb0', c2: '#9fd3ff', viz: 'radar', rung: 2, product: { en: 'NAVISS · AVISS', ko: 'NAVISS · AVISS' }, name: 'Seadronix', logo: 'assets/logos/seadronix.jpg', url: 'https://seadronix.com',
       stage: { en: 'Series B', ko: '시리즈B' },
       sector: { en: 'Maritime AI', ko: '해양 AI' },
-      tagline: { en: 'AI for safer seas and smarter ports.', ko: '더 안전한 바다와 더 똑똑한 항만을 위한 AI.' },
+      tagline: { en: 'AI for safer seas and smarter ports.', ko: '더 안전한 바다, 더 스마트한 항만을 위한 AI.' },
       desc: { en: 'Seadronix develops AI-powered navigation assistance and port monitoring solutions. Combining computer vision and sensor fusion, its NAVISS and AVISS product families help vessel crews and port operators understand their surroundings and support safer maritime operations.',
-              ko: 'Seadronix는 AI 기반 항해 보조 및 항만 모니터링 솔루션을 개발합니다. 컴퓨터 비전과 센서 퓨전을 결합한 NAVISS·AVISS 제품군은 선박 승무원과 항만 운영자가 주변 상황을 파악하도록 도와, 더 안전한 해양 운영을 지원합니다.' },
+              ko: 'Seadronix는 AI 기반 항해 보조 및 항만 모니터링 솔루션을 개발합니다. 컴퓨터 비전과 센서 퓨전 기술을 결합한 NAVISS·AVISS 제품군으로 선원과 항만 운영자가 주변 상황을 파악하도록 도와, 더 안전한 해상 운항을 지원합니다.' },
       tags: { en: ['Maritime AI', 'Autonomous Navigation', 'Port Monitoring'], ko: ['해양 AI', '자율운항', '항만 모니터링'] } },
     { id: 'universe-ai', c: '#3f8fe0', c2: '#c3e4ff', viz: 'face', rung: null, product: { en: 'GATE', ko: 'GATE' }, name: 'Universe AI', logo: 'assets/logos/universe-ai.jpg', url: 'https://univs.ai',
       stage: null,
       sector: { en: 'Biometrics & Digital Identity', ko: '생체인증·디지털 신원확인' },
-      tagline: { en: 'Seamless identity verification through biometrics.', ko: '생체인증으로 끊김 없는 신원확인.' },
+      tagline: { en: 'Seamless identity verification through biometrics.', ko: '생체인증으로 매끄러운 신원확인.' },
       desc: { en: 'Universe AI develops biometric authentication technology for payments, access control, and digital services. Its GATE platform brings together face and palm authentication with liveness detection, enabling businesses to integrate identity verification into their existing systems.',
-              ko: 'Universe AI는 결제, 출입 통제, 디지털 서비스를 위한 생체인증 기술을 개발합니다. GATE 플랫폼은 얼굴·손바닥 인증과 위조 방지(라이브니스) 감지를 결합해, 기업이 기존 시스템에 신원확인 기능을 연동할 수 있게 합니다.' },
+              ko: 'Universe AI는 결제, 출입 통제, 디지털 서비스를 위한 생체인증 기술을 개발합니다. GATE 플랫폼은 얼굴·손바닥 인증과 라이브니스(위조 방지) 감지를 결합해, 기업이 기존 시스템에 신원확인 기능을 연동할 수 있도록 지원합니다.' },
       tags: { en: ['Biometrics', 'Identity Verification', 'Face Payments'], ko: ['생체인증', '신원확인', '얼굴 결제'] } },
     { id: 'sionic-ai', c: '#2a8c8f', c2: '#a9e0dc', viz: 'graph', rung: 1, product: { en: 'STORM', ko: 'STORM' }, name: 'Sionic AI', logo: 'assets/logos/sionic-ai.jpg', url: 'https://sionic.ai',
       stage: { en: 'Series A', ko: '시리즈A' },
       sector: { en: 'Enterprise AI & AI Agents', ko: '기업용 AI·AI 에이전트' },
-      tagline: { en: 'Turn enterprise knowledge into AI-powered action.', ko: '기업의 지식을 AI가 움직이는 업무로.' },
+      tagline: { en: 'Turn enterprise knowledge into AI-powered action.', ko: '기업의 지식을 실행으로 바꾸는 AI.' },
       desc: { en: 'Sionic AI helps organisations build and deploy AI agents through its STORM platform. Combining document processing, enterprise knowledge retrieval, and workflow automation, it enables teams to put company data to work across customer support and internal operations.',
               ko: 'Sionic AI는 STORM 플랫폼으로 기업이 AI 에이전트를 구축하고 배포하도록 돕습니다. 문서 처리, 사내 지식 검색, 업무 자동화를 결합해 고객 지원부터 내부 운영까지 회사 데이터를 실제 업무에 활용할 수 있게 합니다.' },
       tags: { en: ['Enterprise AI', 'AI Agents', 'Document Intelligence'], ko: ['기업용 AI', 'AI 에이전트', '문서 인텔리전스'] } },
@@ -524,26 +524,26 @@ document.documentElement.classList.add('js');
       desc: { en: 'metaLogos develops investment services powered by financial data and quantitative analysis. Its products include 160, which simplifies IPO investing, and MyStockPlan, which supports stock selection and trading based on predefined investment strategies.',
               ko: 'metaLogos는 금융 데이터와 퀀트 분석 기반의 투자 서비스를 개발합니다. 공모주 투자를 간편하게 만든 ‘일육공(160)’과, 미리 정한 투자 전략에 따라 종목 선정과 매매를 돕는 ‘MyStockPlan’을 운영합니다.' },
       tags: { en: ['WealthTech', 'Quantitative Investing', 'Investment Automation'], ko: ['웰스테크', '퀀트 투자', '투자 자동화'] } },
-    { id: 'telepix', c: '#e0234e', c2: '#ff9db0', viz: 'globe', rung: 3, product: { en: 'Imaging payloads · Onboard processing · AI analytics', ko: '영상 탑재체 · 위성 내 처리 · AI 분석' }, name: 'TelePIX', logo: 'assets/logos/telepix.jpg', url: 'https://telepix.ai',
+    { id: 'telepix', c: '#e0234e', c2: '#ff9db0', viz: 'globe', rung: 3, product: { en: 'Imaging payloads · Onboard processing · AI analytics', ko: '영상 탑재체 · 온보드 처리 · AI 영상 분석' }, name: 'TelePIX', logo: 'assets/logos/telepix.jpg', url: 'https://telepix.ai',
       stage: { en: 'Pre-IPO', ko: '프리IPO' },
       sector: { en: 'SpaceTech & Geospatial AI', ko: '우주기술·지리공간 AI' },
-      tagline: { en: 'From satellite imagery to actionable intelligence.', ko: '위성 영상을 바로 쓸 수 있는 인사이트로.' },
+      tagline: { en: 'From satellite imagery to actionable intelligence.', ko: '위성 영상에서 실질적인 인사이트까지.' },
       desc: { en: 'TelePIX delivers satellite solutions spanning imaging payloads, onboard processing, and AI-powered image analytics. Its technology transforms Earth observation data into insights that help organisations monitor change and make informed decisions.',
-              ko: 'TelePIX는 영상 탑재체, 위성 내 데이터 처리, AI 영상 분석을 아우르는 위성 솔루션을 제공합니다. 지구 관측 데이터를 인사이트로 바꿔, 조직이 변화를 모니터링하고 근거 있는 결정을 내리도록 돕습니다.' },
+              ko: 'TelePIX는 영상 탑재체, 온보드 데이터 처리, AI 영상 분석을 아우르는 위성 솔루션을 제공합니다. 지구 관측 데이터를 인사이트로 바꿔, 조직이 변화를 모니터링하고 근거 있는 의사결정을 내리도록 돕습니다.' },
       tags: { en: ['SpaceTech', 'Earth Observation', 'Geospatial AI'], ko: ['우주기술', '지구 관측', '지리공간 AI'] } },
     { id: 'pia-space', c: '#6a3cf0', c2: '#8a5cff', viz: 'cctv', rung: 1, product: { en: 'MACS', ko: 'MACS' }, name: 'PIA Space', logo: 'assets/logos/pia-space.jpg', url: 'https://www.pia.space',
       stage: { en: 'Series A', ko: '시리즈A' },
-      sector: { en: 'Video Intelligence & Safety', ko: '영상 인텔리전스·안전' },
+      sector: { en: 'Video Intelligence & Safety', ko: '영상 분석·안전' },
       tagline: { en: 'Turn existing cameras into intelligent safety systems.', ko: '기존 카메라를 지능형 안전 시스템으로.' },
       desc: { en: 'PIA Space develops AI video analytics that help operators detect and respond to safety incidents. Its MACS solution analyses existing CCTV footage to identify events such as fire, falls, and violence, supporting monitoring across public spaces, facilities, and industrial sites.',
-              ko: 'PIA Space는 운영자가 안전사고를 감지하고 대응하도록 돕는 AI 영상 분석 기술을 개발합니다. MACS 솔루션은 기존 CCTV 영상을 분석해 화재, 쓰러짐, 폭력 같은 상황을 감지하며, 공공장소·시설·산업 현장의 모니터링을 지원합니다.' },
+              ko: 'PIA Space는 운영자가 안전사고를 감지하고 대응하도록 돕는 AI 영상 분석 기술을 개발합니다. MACS 솔루션은 기존 CCTV 영상을 분석해 화재, 낙상, 폭력 같은 상황을 감지하며, 공공장소·시설·산업 현장의 모니터링을 지원합니다.' },
       tags: { en: ['Video AI', 'Safety Monitoring', 'Smart Infrastructure'], ko: ['영상 AI', '안전 모니터링', '스마트 인프라'] } },
     { id: 'softment', c: '#4f7fd8', c2: '#b8ccf5', viz: 'qr', rung: 1, product: { en: 'Tablero (QR ordering)', ko: 'Tablero(테이블로) QR 주문' }, name: 'Softment', logo: 'assets/logos/softment.jpg', url: 'https://www.softment.co.kr',
       stage: { en: 'Series A', ko: '시리즈A' },
       sector: { en: 'Payments & Merchant Technology', ko: '결제·가맹점 기술' },
       tagline: { en: 'Connecting ordering, payments, and merchant operations.', ko: '주문, 결제, 매장 운영을 하나로.' },
       desc: { en: 'Softment provides payment infrastructure and merchant solutions, including its Tablero QR ordering service. Combining smart ordering with payment processing capabilities, it helps businesses streamline customer transactions and day-to-day operations.',
-              ko: 'Softment는 결제 인프라와 QR 주문 서비스 ‘Tablero(테이블로)’ 등 가맹점 솔루션을 제공합니다. 스마트 주문과 결제 처리 기능을 결합해 고객 거래와 일상적인 매장 운영을 간소화합니다.' },
+              ko: 'Softment는 결제 인프라와 QR 주문 서비스 ‘Tablero(테이블로)’ 등 가맹점 솔루션을 제공합니다. 스마트 주문과 결제 처리 기능을 결합해, 기업이 고객 거래와 일상적인 매장 운영을 간소화하도록 돕습니다.' },
       tags: { en: ['Payments', 'QR Ordering', 'Merchant Solutions'], ko: ['결제', 'QR 주문', '가맹점 솔루션'] } }
   ];
 
@@ -551,7 +551,7 @@ document.documentElement.classList.add('js');
     en: {
       'ch.hero': 'Lab Crawl · Singapore', 'ch.intro': 'Meet the startups', 'ch.lineup': 'Lineup', 'ch.close': 'See you on 16 Nov',
       cta: 'Meet the 7 startups', cta2: 'Lineup', route: 'Seoul → Singapore',
-      'cd.before': 'Doors open in', 'cd.d': 'Days', 'cd.h': 'Hrs', 'cd.m': 'Min', 'cd.s': 'Sec', 'cd.live': 'Live now', 'cd.after': 'Thank you for joining',
+      'cd.before': 'Event starts in', 'cd.d': 'Days', 'cd.h': 'Hrs', 'cd.m': 'Min', 'cd.s': 'Sec', 'cd.live': 'Live now', 'cd.after': 'Thank you for joining',
       'f.date': 'Date', 'f.dateV': 'Mon, 16 November 2026', 'f.time': 'Time', 'f.timeV': '13:00–17:00 SGT', 'f.venue': 'Venue',
       'st.1k': 'Startups', 'st.1d': 'Korean teams in the lineup', 'st.2k': 'Sectors', 'st.2d': 'From maritime AI to payments',
       'st.3k': 'Markets', 'st.3d': 'Korea → Singapore', 'st.4k': 'Hours', 'st.4d': '13:00–17:00 SGT',
@@ -567,21 +567,21 @@ document.documentElement.classList.add('js');
       sup: 'Supported by Singapore Global Network', closeD: '16 November 2026 · 13:00–17:00 SGT · OGBC, Plus, Singapore', top: 'Back to top ↑'
     },
     ko: {
-      'ch.hero': '랩 크롤 · 싱가포르', 'ch.intro': '참가 스타트업', 'ch.lineup': '라인업', 'ch.close': '11월 16일에 만나요',
+      'ch.hero': 'Lab Crawl · 싱가포르', 'ch.intro': '참가 스타트업', 'ch.lineup': '라인업', 'ch.close': '11월 16일에 만나요',
       cta: '7개 스타트업 보기', cta2: '라인업', route: '서울 → 싱가포르',
       'cd.before': '행사 시작까지', 'cd.d': '일', 'cd.h': '시간', 'cd.m': '분', 'cd.s': '초', 'cd.live': '지금 진행 중', 'cd.after': '함께해 주셔서 감사합니다',
-      'f.date': '일자', 'f.dateV': '2026년 11월 16일 (월)', 'f.time': '시간', 'f.timeV': '13:00–17:00 (싱가포르 시간)', 'f.venue': '장소',
+      'f.date': '날짜', 'f.dateV': '2026년 11월 16일 (월)', 'f.time': '시간', 'f.timeV': '13:00–17:00 (싱가포르 시간)', 'f.venue': '장소',
       'st.1k': '스타트업', 'st.1d': '참가하는 한국 팀', 'st.2k': '분야', 'st.2d': '해양 AI부터 결제까지',
       'st.3k': '시장', 'st.3d': '한국 → 싱가포르', 'st.4k': '시간', 'st.4d': '13:00–17:00 (싱가포르 시간)',
       meet: '참가 스타트업', meet1: '참가', meet2: '스타트업', sub: '한국 스타트업 7곳, 국경을 넘는 새로운 가능성.',
-      lede: '해양 인텔리전스, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 분석, 영상 인텔리전스, 결제 분야에서 혁신을 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르와 아시아 지역에서의 협업 기회를 찾아보세요.',
-      lineupT: '한눈에 보는 라인업', deckE: '스타트업 소개', hint: '옆으로 넘기거나 ← → 키를 쓰세요',
+      lede: '해양 AI, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 데이터 분석, 영상 분석, 결제 분야를 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르를 비롯한 아시아 지역에서의 협업 기회를 찾아보세요.',
+      lineupT: '한눈에 보는 라인업', deckE: '스타트업 소개', hint: '옆으로 넘기거나 ← → 키로 이동하세요',
       visit: '웹사이트 방문', logo: ' 로고', prev: '이전 스타트업', next: '다음 스타트업', goto: '이동: ',
       more: '더 보기', less: '접기', offer: '핵심 제품', stageL: '투자 단계', rung0: '프리A', rung1: 'A', rung2: 'B', rung3: '프리IPO',
-      illus: '이해를 돕는 일러스트', illusNote: '카드 그림은 이해를 돕기 위한 일러스트이며 실제 제품 화면이 아닙니다.', save: '찜하기', saved: '찜함', 'list.title': '내 관심 기업', 'list.copy': '목록 복사', 'list.clear': '모두 지우기',
-      'list.view': '보기', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — 내 관심 기업', copied: '복사됐어요', copyFail: '여기서는 복사할 수 없어요',
-      cal: '캘린더에 추가', copyLink: '링크 복사', linkCopied: '링크가 복사됐어요', close: '닫기',
-      closeT: '다음을 만들어 갈 팀들과 <em>연결되세요.</em>',
+      illus: '이해를 돕는 일러스트', illusNote: '카드 그림은 이해를 돕기 위한 일러스트이며 실제 제품 화면이 아닙니다.', save: '관심 등록', saved: '등록됨', 'list.title': '내 관심 기업', 'list.copy': '목록 복사', 'list.clear': '모두 지우기',
+      'list.view': '보기', 'list.head': 'KBFG Starters Program | Tenity Lab Crawl — 내 관심 기업', copied: '복사되었습니다', copyFail: '이 화면에서는 복사할 수 없습니다',
+      cal: '캘린더에 추가', copyLink: '링크 복사', linkCopied: '링크가 복사되었습니다', close: '닫기',
+      closeT: '다음을 만들어 갈 팀들을 <em>직접 만나 보세요.</em>',
       sup: '후원: Singapore Global Network', closeD: '2026년 11월 16일 · 13:00–17:00 (싱가포르 시간) · OGBC, Plus, Singapore', top: '맨 위로 ↑'
     }
   };

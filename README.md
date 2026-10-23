@@ -25,4 +25,4 @@ Tenity brand colours sampled from tenity.com: pink `#EB5064`, black, white, gree
 ## Open items
 - Logos: taken from each company's official materials and upscaled with an AI tool; compare against the originals before publishing.
 - Venue spelling "OGBC, Plus, Singapore": confirm.
-- Korean translation: needs review.
+- Korean translation: polished, final review by the Tenity team recommended.
