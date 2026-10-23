@@ -4,439 +4,846 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KBFG Starters Program</title>
-<meta name="description" content="Online brochure for the KBFG Starters Program | Tenity Lab Crawl, 16 November 2026, Singapore: seven Korean startups.">
+<meta name="description" content="KBFG Starters Program | Tenity Lab Crawl — 16 November 2026, Singapore. Meet seven Korean startups.">
 <meta property="og:title" content="KBFG Starters Program | Tenity Lab Crawl">
-<meta property="og:description" content="Online brochure for the KBFG Starters Program | Tenity Lab Crawl, 16 November 2026, Singapore: seven Korean startups.">
-<meta property="og:image" content="assets/poster.jpg">
-<meta name="theme-color" content="#0d1822">
+<meta property="og:description" content="KBFG Starters Program | Tenity Lab Crawl — 16 November 2026, Singapore. Meet seven Korean startups.">
+<meta property="og:image" content="https://hongjinhyotop-cpu.github.io/kbfg-starters-brochure/assets/poster.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#060c12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: the poster's dusk-navy band on top (poster, date, venue), then a light reading area:
-   intro, an at-a-glance table that jumps to each card, seven startup cards, dark footer.
-   Single deliberate look taken from the event poster, so colors are set explicitly for both host themes. */
+/* Layout: a dark "night over Marina Bay" stage taken from the event poster.
+   Hero (live-decoding headline, ICN→SIN route, countdown) → sector marquee → stats → intro →
+   lineup index → swipeable deck of white startup slides → closing band.
+   One deliberate dark look, so colors are set explicitly rather than following the host theme. */
 :root {
-  --night: #0d1822;
-  --night-2: #16242f;
-  --on-night: #eef2f5;
-  --on-night-muted: #a7b4bf;
+  --ink-0: #060c12;
+  --night: #0a131b;
+  --night-2: #111d28;
+  --glass: rgba(17, 29, 40, 0.74);
+  --line-d: rgba(255, 255, 255, 0.11);
+  --on: #eef2f6;
+  --on-2: #9badbd;
   --coral: #ff4d6a;
-  --coral-ink: #d92f4e;
-  --paper: #f5f6f8;
-  --card: #ffffff;
-  --ink: #131d26;
-  --muted: #5b6874;
-  --line: #dfe4e9;
-  --tint: #fff0f2;
-  --font-display: "Instrument Sans", "IBM Plex Sans KR", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans KR", "Instrument Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  color-scheme: light;
+  --coral-soft: rgba(255, 77, 106, 0.14);
+  --dusk: #ffb08a;
+  --paper: #ffffff;
+  --ink: #0f1820;
+  --muted: #5a6876;
+  --line: #e3e8ed;
+  --f-display: "Archivo", "IBM Plex Sans KR", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans KR", "Archivo", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
+  background: var(--night);
+  color: var(--on);
+  font-family: var(--f-body);
   font-size: 16px;
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
+[hidden] { display: none !important; }
+html[lang="ko"] body { word-break: keep-all; overflow-wrap: anywhere; }
 body::before {
   content: "";
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  background: var(--night);
-  z-index: 20;
+  background: var(--ink-0);
+  z-index: 40;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 4px; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
+button { font: inherit; color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; border-radius: 6px; }
 .gutter {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-.inner { max-width: 1040px; margin-inline: auto; }
+.inner { max-width: 1180px; margin-inline: auto; }
+.mono { font-family: var(--f-mono); }
+.scr { color: var(--coral); }
+.ghost { opacity: 0; }
 
-/* Top bar */
-.bar {
+/* ---------- top bar ---------- */
+.tb {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
-  z-index: 10;
-  background: var(--night);
-  color: var(--on-night);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 30;
+  background: rgba(6, 12, 18, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-d);
 }
-.bar .inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
-.bar-brand { font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.bar-brand span { color: var(--on-night-muted); font-weight: 500; padding-inline: 6px; }
-.lang { display: inline-flex; flex: none; padding: 3px; border-radius: 999px; background: var(--night-2); border: 1px solid rgba(255,255,255,0.12); }
-.lang button {
-  font: 600 13px/1 var(--font-body);
-  min-height: 34px;
-  padding: 0 14px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--on-night-muted);
-  cursor: pointer;
+.tb .inner { display: flex; align-items: center; gap: 14px; min-height: 54px; }
+.tb-mark { font-family: var(--f-display); font-variation-settings: "wdth" 112; font-weight: 800; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; text-decoration: none; }
+.tb-mark i { font-style: normal; color: var(--coral); padding-inline: 4px; }
+.tb-ch { flex: 1; min-width: 0; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tb-ch b { color: var(--coral); font-weight: 700; padding-right: 6px; }
+.langs { display: inline-flex; flex: none; padding: 3px; border-radius: 999px; background: var(--night-2); border: 1px solid var(--line-d); }
+.langs button { min-height: 32px; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: var(--on-2); font-weight: 700; font-size: 12.5px; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: var(--coral); color: #1a0509; }
+#prog { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--coral); transform: scaleX(0); transform-origin: left; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; isolation: isolate; border-bottom: 1px solid var(--line-d); }
+.hero-sky {
+  position: absolute; z-index: -2; top: 0; right: 0; height: 100%; width: min(100%, 640px);
+  object-fit: cover; opacity: 0.5;
+  -webkit-mask-image: linear-gradient(to left, #000 30%, transparent 100%), linear-gradient(to top, transparent 0%, #000 30%);
+  mask-image: linear-gradient(to left, #000 30%, transparent 100%);
 }
-.lang button[aria-pressed="true"] { background: var(--coral); color: #fff; }
-
-/* Hero */
-.hero { background: var(--night); color: var(--on-night); }
-.hero .inner { display: flex; flex-direction: column; gap: 20px; padding-block: 20px 36px; }
-.poster { width: 100%; height: auto; aspect-ratio: 16 / 9; max-width: 100%; object-fit: cover; border-radius: 12px; background: var(--night-2); }
-.facts { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 24px; }
-.facts dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; }
-.facts dt { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); padding-top: 3px; }
-.facts dd { margin: 0; font-size: 16px; min-width: 0; }
-.cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  min-height: 44px; padding: 0 20px;
-  border: 1.5px solid var(--coral);
-  border-radius: 999px;
-  color: var(--on-night);
-  font-weight: 600; font-size: 15px;
-  text-decoration: none;
-  transition: background 0.15s;
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 10%, rgba(255, 176, 138, 0.16), transparent 70%),
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 56px 56px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
-.cta:hover { background: rgba(255,77,106,0.16); }
-
-/* Sections */
-main .inner { display: flex; flex-direction: column; }
-.intro { padding-block: 44px 28px; display: flex; flex-direction: column; gap: 12px; }
-.rule { width: 36px; height: 3px; background: var(--coral); border-radius: 2px; }
-.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-ink); margin: 0; }
-h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 6vw, 44px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
-.sub { font-size: 18px; font-weight: 500; margin: 0; text-wrap: balance; }
-.lede { margin: 0; max-width: 66ch; color: var(--muted); }
-
-/* At a glance */
-.glance { padding-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
-.glance h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0; }
-.table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th { text-align: left; font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-tr:last-child td { border-bottom: 0; }
-td a { font-weight: 600; text-decoration: none; display: inline-flex; gap: 6px; align-items: baseline; white-space: nowrap; }
-@media (max-width: 480px) { table { font-size: 13px; } th, td { padding: 10px 10px; } }
-td a::after { content: "↓"; color: var(--coral-ink); font-size: 12px; }
-td a:hover { color: var(--coral-ink); }
-td.stage-cell { white-space: nowrap; font-family: var(--font-mono); font-size: 13px; }
-td.empty { color: var(--muted); }
-
-/* Cards */
-.cards { list-style: none; margin: 0; padding: 0 0 56px; display: flex; flex-direction: column; gap: 14px; }
-.card {
-  scroll-margin-top: calc(70px + env(safe-area-inset-top, 0px));
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
+.hero .inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 40px 52px; }
+.kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+.kicker .k1 { color: var(--coral); font-weight: 700; }
+.kicker .k2 { color: var(--on-2); border: 1px solid var(--line-d); border-radius: 999px; padding: 3px 10px; letter-spacing: 0.1em; }
+.kicker .k2 .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--coral); margin-right: 7px; vertical-align: 1px; animation: pulse 1.6s ease-in-out infinite; }
+.hl {
+  margin: 18px 0 0;
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 116;
+  font-weight: 800;
+  font-size: clamp(40px, 11.6vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
-.card:target { border-color: var(--coral); box-shadow: 0 0 0 3px var(--tint); }
-.who { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.who-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.logo { width: 128px; height: 72px; padding: 8px; border: 1px solid var(--line); border-radius: 10px; background: #fff; display: grid; place-items: center; flex: none; }
-.logo img { width: 110px; height: 54px; object-fit: contain; }
-html[lang="ko"] body { word-break: keep-all; overflow-wrap: anywhere; }
-html[lang="ko"] .sector { font-family: var(--font-body); letter-spacing: 0.02em; }
-.stage { font-family: var(--font-mono); font-size: 12px; color: var(--coral-ink); border: 1.5px solid var(--coral); border-radius: 999px; padding: 3px 11px; white-space: nowrap; }
-.name { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 4px 0 0; }
-.sector { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0; }
-.what { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.tagline { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0; text-wrap: balance; }
-.desc { margin: 0; color: #2e3a45; }
-.tags { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-.tags li { font-size: 12.5px; padding: 4px 10px; border-radius: 6px; background: var(--paper); color: var(--muted); }
-.visit { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 4px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
-.visit:hover { background: var(--coral-ink); }
-.visit small { font-weight: 400; color: #c3ccd4; font-size: 12.5px; }
+.hl > span { display: block; white-space: nowrap; }
+.hl > span:nth-child(2) { color: transparent; -webkit-text-stroke: 1.5px var(--on); }
+.hl > span:nth-child(2) .scr { -webkit-text-stroke: 1.5px var(--coral); color: transparent; }
+.hl > span:lang(ko) { letter-spacing: -0.03em; }
+.prog-name { margin: 20px 0 0; font-family: var(--f-display); font-variation-settings: "wdth" 100; font-weight: 600; font-size: clamp(19px, 4.4vw, 28px); line-height: 1.2; }
+.prog-name span { display: block; color: var(--on-2); font-weight: 500; }
+.hero-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px;
+  border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; cursor: pointer;
+  transition: transform .2s var(--ease), background .2s;
+}
+.btn-coral { background: var(--coral); color: #1a0509; border: 0; }
+.btn-coral:hover { transform: translateY(-2px); }
+.btn-coral .arr { transition: transform .25s var(--ease); }
+.btn-coral:hover .arr { transform: translateX(4px); }
+.btn-line { border: 1px solid var(--line-d); background: transparent; color: var(--on); }
+.btn-line:hover { background: rgba(255,255,255,0.06); }
 
+.hud { background: var(--glass); border: 1px solid var(--line-d); border-radius: 18px; padding: 18px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.hud-label { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); margin: 0; }
+.route svg { width: 100%; height: auto; display: block; overflow: visible; }
+.route .base { fill: none; stroke: var(--on-2); stroke-opacity: .35; stroke-width: 1.2; stroke-dasharray: 2 5; }
+.route .arc { fill: none; stroke: var(--coral); stroke-width: 2; stroke-linecap: round; }
+.route .pt { fill: var(--on); }
+.route .ring { fill: none; stroke: var(--coral); stroke-width: 1.2; }
+.route .plane { fill: var(--coral); }
+.route text { font-family: var(--f-mono); font-size: 10px; fill: var(--on-2); letter-spacing: 0.06em; }
+.route text.code { font-family: var(--f-display); font-weight: 800; font-size: 17px; fill: var(--on); letter-spacing: 0.02em; }
+.route text.dist { fill: var(--dusk); font-size: 10.5px; }
+.cd { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.cd div { background: rgba(6,12,18,0.55); border: 1px solid var(--line-d); border-radius: 10px; padding: 10px 6px 8px; text-align: center; }
+.cd b { display: block; font-family: var(--f-mono); font-weight: 700; font-size: clamp(22px, 6.4vw, 30px); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.cd small { display: block; margin-top: 4px; font-family: var(--f-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-2); }
+.cd-live { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-variation-settings: "wdth" 118; font-weight: 800; font-size: 28px; text-transform: uppercase; }
+.cd-live .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); animation: pulse 1.2s ease-in-out infinite; }
+.facts { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; padding-top: 14px; border-top: 1px solid var(--line-d); }
+.facts dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-2); padding-top: 3px; }
+.facts dd { margin: 0; font-size: 15px; font-weight: 500; min-width: 0; }
+
+@media (min-width: 980px) {
+  .hero .inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr); align-items: end; gap: 48px; padding-block: 72px 80px; }
+  .hl { font-size: clamp(64px, 6.8vw, 100px); }
+  .hero-sky { opacity: 0.62; }
+}
+
+/* ---------- marquee ---------- */
+.mq { overflow: hidden; border-bottom: 1px solid var(--line-d); background: var(--ink-0); padding-block: 16px; }
+.mq-track { display: flex; width: max-content; animation: marq 48s linear infinite; }
+.mq-track span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font-family: var(--f-display); font-variation-settings: "wdth" 125; font-weight: 700; font-size: clamp(16px, 3.2vw, 24px); text-transform: uppercase; white-space: nowrap; letter-spacing: 0.01em; }
+.mq-track span::after { content: ""; width: 8px; height: 8px; background: var(--coral); transform: rotate(45deg); }
+
+/* ---------- stats ---------- */
+.stats .inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding-block: 8px 0; }
+.stat { padding: 26px 14px 26px 0; border-bottom: 1px solid var(--line-d); min-width: 0; }
+.stat:nth-child(odd) { border-right: 1px solid var(--line-d); }
+.stat:nth-child(even) { padding-left: 16px; }
+.stat .k { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); }
+.stat .v { display: block; margin-top: 6px; font-family: var(--f-display); font-variation-settings: "wdth" 100; font-weight: 800; font-size: clamp(54px, 13vw, 92px); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.stat .d { display: block; margin-top: 8px; font-size: 13.5px; color: var(--on-2); }
+@media (min-width: 860px) {
+  .stats .inner { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stat { border-right: 1px solid var(--line-d); padding: 34px 20px; }
+  .stat:nth-child(even) { padding-left: 20px; }
+  .stat:first-child { padding-left: 0; }
+  .stat:last-child { border-right: 0; }
+}
+
+/* ---------- intro ---------- */
+.intro .inner { padding-block: 64px 28px; display: grid; gap: 18px; }
+.eyebrow { margin: 0; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--coral); display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--coral); }
+.h2 { margin: 0; font-family: var(--f-display); font-variation-settings: "wdth" 116; font-weight: 800; font-size: clamp(38px, 9.4vw, 92px); line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase; text-wrap: balance; }
+.intro .sub { margin: 4px 0 0; font-size: clamp(18px, 3.6vw, 24px); font-weight: 500; line-height: 1.4; max-width: 34ch; text-wrap: balance; }
+.intro .lede { margin: 0; max-width: 64ch; color: var(--on-2); }
+@media (min-width: 980px) {
+  .intro .inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 56px; align-items: end; }
+  .intro .eyebrow, .intro .h2 { grid-column: 1; }
+  .intro .sub { grid-column: 2; grid-row: 2; }
+  .intro .lede { grid-column: 2; }
+}
+
+/* ---------- lineup index ---------- */
+.lineup .inner { padding-block: 20px 56px; }
+.lineup h3 { margin: 0 0 12px; font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-2); }
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-d); }
+.rows a {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr) auto 20px; align-items: center; gap: 4px 12px;
+  padding: 16px 6px; border-bottom: 1px solid var(--line-d); text-decoration: none;
+  transition: background .2s, padding .3s var(--ease);
+}
+.rows a:hover { background: var(--coral-soft); padding-left: 12px; }
+.rows .n { font-family: var(--f-mono); font-size: 12px; color: var(--coral); }
+.rows .nm { font-family: var(--f-display); font-variation-settings: "wdth" 108; font-weight: 700; font-size: clamp(19px, 4.6vw, 28px); line-height: 1.15; min-width: 0; }
+.rows .sc { display: block; font-family: var(--f-body); font-size: 13px; font-weight: 400; color: var(--on-2); margin-top: 2px; }
+.rows .st { font-family: var(--f-mono); font-size: 11.5px; color: var(--on); border: 1px solid var(--line-d); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.rows .st.none { visibility: hidden; }
+.rows .ar { color: var(--on-2); transition: transform .25s var(--ease), color .2s; }
+.rows a:hover .ar { transform: translateX(4px); color: var(--coral); }
+.rows .sc2 { display: none; }
+@media (min-width: 860px) {
+  .rows a { grid-template-columns: 52px minmax(0, 1.1fr) minmax(0, 1fr) 150px 24px; padding-block: 20px; }
+  .rows .sc { display: none; }
+  .rows .sc2 { display: block; font-size: 15px; color: var(--on-2); }
+  .rows .st { justify-self: start; }
+}
+
+/* ---------- deck ---------- */
+.deck-sec { border-top: 1px solid var(--line-d); background: linear-gradient(180deg, var(--ink-0), var(--night) 40%); scroll-margin-top: 54px; }
+.deck-head .inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; padding-block: 44px 20px; }
+.deck-head .count { font-family: var(--f-display); font-variation-settings: "wdth" 110; font-weight: 800; font-size: clamp(54px, 12vw, 96px); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin: 8px 0 0; }
+.deck-head .count span { color: var(--on-2); font-weight: 500; font-size: 0.42em; letter-spacing: 0; padding-left: 6px; }
+.deck-head .hint { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-2); margin: 6px 0 0; }
+.deck-head .hint .sw { display: inline-block; animation: nudge 1.6s var(--ease) infinite; color: var(--coral); }
+.nav { display: flex; gap: 10px; }
+.nav button { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line-d); background: var(--night-2); cursor: pointer; font-size: 20px; transition: background .2s, border-color .2s, opacity .2s; }
+.nav button:hover:not(:disabled) { background: var(--coral); border-color: var(--coral); color: #1a0509; }
+.nav button:disabled { opacity: .35; cursor: default; }
+
+.deck {
+  --edge: max(16px, env(safe-area-inset-left, 0px), calc((100vw - 1180px) / 2));
+  display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+  padding: 6px var(--edge) 22px; scrollbar-width: none; position: relative;
+}
+.deck::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 min(calc(100vw - 44px), 820px);
+  scroll-snap-align: start;
+  background: var(--paper); color: var(--ink);
+  border-radius: 22px; padding: 22px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; align-content: start;
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.js .slide:not(.on) { opacity: .45; transform: scale(.965); }
+.sl-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.sl-num { font-family: var(--f-display); font-variation-settings: "wdth" 125; font-weight: 800; font-size: 56px; line-height: .8; color: transparent; -webkit-text-stroke: 1.5px #c9d1d9; letter-spacing: -0.02em; }
+.sl-num small { font-size: 0.32em; -webkit-text-stroke: 0; color: var(--muted); font-family: var(--f-mono); font-weight: 500; letter-spacing: 0.04em; padding-left: 4px; }
+.pill { font-family: var(--f-mono); font-size: 12px; font-weight: 700; color: #c4243f; background: #fff0f2; border: 1.5px solid var(--coral); border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+.logo { width: 164px; height: 96px; border: 1px solid var(--line); border-radius: 12px; display: grid; place-items: center; padding: 10px; background: #fff; }
+.logo img { width: 142px; height: 74px; object-fit: contain; }
+.logo .fb { font-family: var(--f-display); font-weight: 800; font-size: 16px; text-align: center; }
+.sl-name { margin: 0; font-family: var(--f-display); font-variation-settings: "wdth" 106; font-weight: 800; font-size: clamp(32px, 8.4vw, 46px); line-height: 1; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+.sl-sector { margin: 8px 0 0; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #c4243f; }
+html[lang="ko"] .sl-sector { font-family: var(--f-body); letter-spacing: 0.02em; font-weight: 700; font-size: 13px; }
+.sl-tag { margin: 0; font-family: var(--f-display); font-variation-settings: "wdth" 100; font-weight: 700; font-size: clamp(21px, 4.6vw, 28px); line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; }
+.sl-desc { margin: 0; color: #2c3843; font-size: 15.5px; }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li { font-size: 12.5px; padding: 5px 11px; border-radius: 999px; background: #f2f4f6; color: var(--muted); }
+.visit { align-self: start; justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; border-radius: 999px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 700; font-size: 14.5px; transition: background .2s; }
+.visit:hover { background: #c4243f; }
+.visit small { font-weight: 400; color: #b8c2cc; font-size: 12.5px; }
+.sl-a, .sl-b { display: grid; gap: 14px; align-content: start; min-width: 0; }
 @media (min-width: 760px) {
-  .card { grid-template-columns: 230px minmax(0, 1fr); gap: 28px; padding: 26px 28px; }
-  .who { border-right: 1px solid var(--line); padding-right: 24px; }
-  .who-top { flex-direction: column; align-items: flex-start; }
-  .who-top .stage { order: 3; }
-  .who { gap: 8px; }
+  .slide { grid-template-columns: 270px minmax(0, 1fr); gap: 36px; padding: 34px 36px; }
+  .sl-top { grid-column: 1 / -1; }
+  .sl-a { border-right: 1px solid var(--line); padding-right: 28px; }
 }
+.pager { display: flex; gap: 6px; padding-bottom: 56px; }
+.pager button { flex: 1; height: 24px; border: 0; background: transparent; padding: 0; cursor: pointer; position: relative; }
+.pager button::after { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 4px; border-radius: 2px; background: var(--line-d); transition: background .3s; }
+.pager button[aria-current="true"]::after { background: var(--coral); }
 
-/* Footer */
-footer { background: var(--night); color: var(--on-night); }
-footer .inner { padding-block: 36px 44px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
-.foot-title { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25; margin: 0; max-width: 22ch; text-wrap: balance; }
-.foot-meta { margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--on-night-muted); }
-.foot-meta strong { color: var(--on-night); font-weight: 600; }
+/* ---------- close ---------- */
+.close { border-top: 1px solid var(--line-d); background: var(--ink-0); }
+.close .inner { padding-block: 64px 56px; display: grid; gap: 28px; }
+.close .big { margin: 0; font-family: var(--f-display); font-variation-settings: "wdth" 112; font-weight: 800; font-size: clamp(34px, 8vw, 80px); line-height: 0.95; letter-spacing: -0.02em; text-wrap: balance; max-width: 16ch; }
+.close .big em { font-style: normal; color: var(--coral); }
+.close-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px; padding-top: 24px; border-top: 1px solid var(--line-d); }
+.close-meta p { margin: 0; display: grid; gap: 4px; font-size: 14px; color: var(--on-2); }
+.close-meta strong { color: var(--on); font-family: var(--f-display); font-variation-settings: "wdth" 112; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 15px; }
+.totop { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-2); text-decoration: none; padding: 10px 0; }
+.totop:hover { color: var(--coral); }
+
+/* ---------- motion ---------- */
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.8); } }
+@keyframes marq { to { transform: translateX(-50%); } }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.rv.play { animation: rise .9s var(--ease) both; }
+.hero .rise { animation: rise 1.1s var(--ease) both; }
+.hero .rise.d1 { animation-delay: .12s; } .hero .rise.d2 { animation-delay: .24s; } .hero .rise.d3 { animation-delay: .36s; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .slide:not(.on) { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
-<header class="bar gutter">
+<header class="tb gutter">
   <div class="inner">
-    <div class="bar-brand">Tenity<span>×</span>KB Financial Group</div>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" id="btn-en" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" id="btn-ko" data-lang="ko" aria-pressed="false">한국어</button>
+    <a class="tb-mark" href="#top">KBFG<i>×</i>Tenity</a>
+    <div class="tb-ch" id="tbCh" aria-live="off"><b>00</b><span data-i18n="ch.hero">Lab Crawl · Singapore</span></div>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
     </div>
   </div>
+  <div id="prog" aria-hidden="true"></div>
 </header>
 
-<section class="hero gutter">
+<section class="hero gutter" id="top" data-ch="00" data-chk="ch.hero">
+  <img class="hero-sky" src="assets/skyline.jpg" alt="" width="420" height="670">
   <div class="inner">
-    <h1 class="sr-only">KBFG Starters Program | Tenity Lab Crawl: Innovation Beyond Borders</h1>
-    <img class="poster" src="assets/poster.jpg" width="1600" height="900"
-         alt="KBFG Starters Program | Tenity Lab Crawl. Singapore and Korea. Innovation Beyond Borders. Tenity and KB Financial Group, supported by Singapore Global Network.">
-    <div class="facts">
-      <dl>
-        <dt data-i18n="dateLabel">Date</dt>
-        <dd data-i18n="date">Monday, 16 November 2026 · 13:00–17:00 SGT</dd>
-        <dt data-i18n="venueLabel">Venue</dt>
-        <dd>OGBC, Plus, Singapore</dd>
+    <div>
+      <div class="kicker rise">
+        <span class="k1">Singapore — Korea</span>
+        <span class="k2"><span class="dot"></span><span id="capTag">ENG</span></span>
+      </div>
+      <h1 class="hl rise d1" aria-label="Innovation Beyond Borders">
+        <span aria-hidden="true">Innovation</span>
+        <span aria-hidden="true">Beyond</span>
+        <span aria-hidden="true">Borders</span>
+      </h1>
+      <p class="prog-name rise d2">KBFG Starters Program<span>Tenity Lab Crawl</span></p>
+      <div class="hero-cta rise d3">
+        <a class="btn btn-coral" href="#deck"><span data-i18n="cta">Meet the 7 startups</span><span class="arr">→</span></a>
+        <a class="btn btn-line" href="#lineup" data-i18n="cta2">Lineup</a>
+      </div>
+    </div>
+
+    <aside class="hud rise d2" aria-label="Event details">
+      <div class="route">
+        <p class="hud-label" data-i18n="route">Seoul → Singapore</p>
+        <svg viewBox="0 0 320 132" role="img" aria-label="Route from Incheon (ICN) to Singapore Changi (SIN), about 4,625 km">
+          <path class="base" d="M286 34 Q 168 -14 34 98"/>
+          <path class="arc" id="arc" d="M286 34 Q 168 -14 34 98"/>
+          <circle class="ring" cx="286" cy="34" r="7"/>
+          <circle class="pt" cx="286" cy="34" r="3.2"/>
+          <circle class="ring" cx="34" cy="98" r="7"/>
+          <circle class="pt" cx="34" cy="98" r="3.2"/>
+          <circle class="plane" id="plane" cx="34" cy="98" r="4.2"/>
+          <text class="code" x="306" y="60" text-anchor="end">ICN</text>
+          <text x="306" y="74" text-anchor="end">37.46°N 126.44°E</text>
+          <text class="code" x="14" y="124">SIN</text>
+          <text x="58" y="124">1.36°N 103.99°E</text>
+          <text class="dist" x="172" y="60" text-anchor="middle">≈ 4,625 KM</text>
+        </svg>
+      </div>
+      <div>
+        <p class="hud-label" id="cdLabel" data-i18n="cd.before">Doors open in</p>
+        <div class="cd" id="cd">
+          <div><b id="cdD">--</b><small data-i18n="cd.d">Days</small></div>
+          <div><b id="cdH">--</b><small data-i18n="cd.h">Hrs</small></div>
+          <div><b id="cdM">--</b><small data-i18n="cd.m">Min</small></div>
+          <div><b id="cdS">--</b><small data-i18n="cd.s">Sec</small></div>
+        </div>
+        <div class="cd-live" id="cdLive" hidden><span class="dot"></span><span id="cdLiveText">Live now</span></div>
+      </div>
+      <dl class="facts">
+        <dt data-i18n="f.date">Date</dt><dd data-i18n="f.dateV">Mon, 16 November 2026</dd>
+        <dt data-i18n="f.time">Time</dt><dd data-i18n="f.timeV">13:00–17:00 SGT</dd>
+        <dt data-i18n="f.venue">Venue</dt><dd>OGBC, Plus, Singapore</dd>
       </dl>
-      <a class="cta" href="#startups" data-i18n="cta">Explore the startups ↓</a>
+    </aside>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true">
+  <div class="mq-track" id="mq"></div>
+</div>
+
+<section class="stats gutter" data-ch="01" data-chk="ch.intro" aria-label="Key numbers">
+  <div class="inner">
+    <div class="stat rv" data-count="7"><span class="k" data-i18n="st.1k">Startups</span><span class="v">07</span><span class="d" data-i18n="st.1d">Korean teams in the lineup</span></div>
+    <div class="stat rv" data-count="7"><span class="k" data-i18n="st.2k">Sectors</span><span class="v">07</span><span class="d" data-i18n="st.2d">From maritime AI to payments</span></div>
+    <div class="stat rv" data-count="2"><span class="k" data-i18n="st.3k">Markets</span><span class="v">02</span><span class="d" data-i18n="st.3d">Korea → Singapore</span></div>
+    <div class="stat rv" data-count="4"><span class="k" data-i18n="st.4k">Hours</span><span class="v">04</span><span class="d" data-i18n="st.4d">13:00–17:00 SGT</span></div>
+  </div>
+</section>
+
+<section class="intro gutter" data-ch="01" data-chk="ch.intro">
+  <div class="inner">
+    <p class="eyebrow rv">Innovation Beyond Borders</p>
+    <h2 class="h2 rv" data-i18n="meet">Meet the Startups</h2>
+    <p class="sub rv" data-i18n="sub">Seven Korean startups. New possibilities across borders.</p>
+    <p class="lede rv" data-i18n="lede">Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.</p>
+  </div>
+</section>
+
+<section class="lineup gutter" id="lineup" data-ch="02" data-chk="ch.lineup">
+  <div class="inner">
+    <h3 data-i18n="lineupT">Lineup at a glance</h3>
+    <ol class="rows" id="rows"></ol>
+  </div>
+</section>
+
+<section class="deck-sec" id="deck" data-ch="03" data-chk="deck" aria-roledescription="carousel" aria-label="Startups">
+  <div class="deck-head gutter">
+    <div class="inner">
+      <div>
+        <p class="eyebrow" data-i18n="deckE">The startups</p>
+        <p class="count" aria-live="polite"><span id="cur" style="padding:0;font-size:1em;color:var(--on);font-weight:800;letter-spacing:-0.03em">01</span><span>/ 07</span></p>
+        <p class="hint"><span data-i18n="hint">Swipe or use ← → keys</span> <span class="sw">→</span></p>
+      </div>
+      <div class="nav">
+        <button type="button" id="prev" aria-label="Previous startup">←</button>
+        <button type="button" id="next" aria-label="Next startup">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="deck" id="track" tabindex="0" aria-label="Startup slides"></div>
+  <div class="gutter"><div class="inner pager" id="pager"></div></div>
+</section>
+
+<section class="close gutter" data-ch="04" data-chk="ch.close">
+  <div class="inner">
+    <p class="big rv" data-i18n-html="closeT">Connect with the teams shaping <em>what's next.</em></p>
+    <div class="close-meta">
+      <p>
+        <strong>Tenity × KB Financial Group</strong>
+        <span data-i18n="sup">Supported by Singapore Global Network</span>
+        <span data-i18n="closeD">16 November 2026 · 13:00–17:00 SGT · OGBC, Plus, Singapore</span>
+      </p>
+      <a class="totop" href="#top" data-i18n="top">Back to top ↑</a>
     </div>
   </div>
 </section>
 
-<main class="gutter">
-  <div class="inner">
-    <section class="intro" id="startups">
-      <div class="rule" aria-hidden="true"></div>
-      <p class="eyebrow">Innovation Beyond Borders</p>
-      <h2 data-i18n="meet">Meet the Startups</h2>
-      <p class="sub" data-i18n="sub">Seven Korean startups. New possibilities across borders.</p>
-      <p class="lede" data-i18n="lede">Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.</p>
-    </section>
-
-    <section class="glance" aria-labelledby="glance-title">
-      <h3 id="glance-title" data-i18n="glance">At a glance</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th data-i18n="thCompany">Company</th><th data-i18n="thSector">Sector</th><th data-i18n="thStage">Funding stage</th></tr>
-          </thead>
-          <tbody id="glance-rows"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <ol class="cards" id="cards"></ol>
-  </div>
-</main>
-
-<footer class="gutter">
-  <div class="inner">
-    <p class="foot-title" data-i18n="footTitle">Connect with the teams shaping what's next.</p>
-    <div class="foot-meta">
-      <span><strong>Tenity × KB Financial Group</strong></span>
-      <span data-i18n="supported">Supported by Singapore Global Network</span>
-      <span data-i18n="footDate">16 November 2026 · OGBC, Plus, Singapore</span>
-    </div>
-  </div>
-</footer>
-
 <script>
-// ---- Content. Edit here. Leave stage empty ("") to hide the badge. ----
-var STARTUPS = [
-  {
-    id: "seadronix", name: "Seadronix", logo: "assets/logos/seadronix.jpg",
-    url: "https://seadronix.com", stage: { en: "Series B", ko: "시리즈B" },
-    sector: { en: "Maritime AI", ko: "해양 AI" },
-    tagline: { en: "AI for safer seas and smarter ports.", ko: "더 안전한 바다와 더 똑똑한 항만을 위한 AI." },
-    desc: {
-      en: "Seadronix develops AI-powered navigation assistance and port monitoring solutions. Combining computer vision and sensor fusion, its NAVISS and AVISS product families help vessel crews and port operators understand their surroundings and support safer maritime operations.",
-      ko: "Seadronix는 AI 기반 항해 보조 및 항만 모니터링 솔루션을 개발합니다. 컴퓨터 비전과 센서 퓨전을 결합한 NAVISS·AVISS 제품군은 선박 승무원과 항만 운영자가 주변 상황을 파악하도록 도와, 더 안전한 해양 운영을 지원합니다."
+document.documentElement.classList.add('js');
+(function () {
+  var R = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+
+  /* ================= CONTENT (edit here) =================
+     stage: null hides the funding-stage badge. */
+  var STARTUPS = [
+    { id: 'seadronix', name: 'Seadronix', logo: 'assets/logos/seadronix.jpg', url: 'https://seadronix.com',
+      stage: { en: 'Series B', ko: '시리즈B' },
+      sector: { en: 'Maritime AI', ko: '해양 AI' },
+      tagline: { en: 'AI for safer seas and smarter ports.', ko: '더 안전한 바다와 더 똑똑한 항만을 위한 AI.' },
+      desc: { en: 'Seadronix develops AI-powered navigation assistance and port monitoring solutions. Combining computer vision and sensor fusion, its NAVISS and AVISS product families help vessel crews and port operators understand their surroundings and support safer maritime operations.',
+              ko: 'Seadronix는 AI 기반 항해 보조 및 항만 모니터링 솔루션을 개발합니다. 컴퓨터 비전과 센서 퓨전을 결합한 NAVISS·AVISS 제품군은 선박 승무원과 항만 운영자가 주변 상황을 파악하도록 도와, 더 안전한 해양 운영을 지원합니다.' },
+      tags: { en: ['Maritime AI', 'Autonomous Navigation', 'Port Monitoring'], ko: ['해양 AI', '자율운항', '항만 모니터링'] } },
+    { id: 'universe-ai', name: 'Universe AI', logo: 'assets/logos/universe-ai.jpg', url: 'https://univs.ai',
+      stage: null,
+      sector: { en: 'Biometrics & Digital Identity', ko: '생체인증·디지털 신원확인' },
+      tagline: { en: 'Seamless identity verification through biometrics.', ko: '생체인증으로 끊김 없는 신원확인.' },
+      desc: { en: 'Universe AI develops biometric authentication technology for payments, access control, and digital services. Its GATE platform brings together face and palm authentication with liveness detection, enabling businesses to integrate identity verification into their existing systems.',
+              ko: 'Universe AI는 결제, 출입 통제, 디지털 서비스를 위한 생체인증 기술을 개발합니다. GATE 플랫폼은 얼굴·손바닥 인증과 위조 방지(라이브니스) 감지를 결합해, 기업이 기존 시스템에 신원확인 기능을 연동할 수 있게 합니다.' },
+      tags: { en: ['Biometrics', 'Identity Verification', 'Face Payments'], ko: ['생체인증', '신원확인', '얼굴 결제'] } },
+    { id: 'sionic-ai', name: 'Sionic AI', logo: 'assets/logos/sionic-ai.jpg', url: 'https://sionic.ai',
+      stage: { en: 'Series A', ko: '시리즈A' },
+      sector: { en: 'Enterprise AI & AI Agents', ko: '기업용 AI·AI 에이전트' },
+      tagline: { en: 'Turn enterprise knowledge into AI-powered action.', ko: '기업의 지식을 AI가 움직이는 업무로.' },
+      desc: { en: 'Sionic AI helps organisations build and deploy AI agents through its STORM platform. Combining document processing, enterprise knowledge retrieval, and workflow automation, it enables teams to put company data to work across customer support and internal operations.',
+              ko: 'Sionic AI는 STORM 플랫폼으로 기업이 AI 에이전트를 구축하고 배포하도록 돕습니다. 문서 처리, 사내 지식 검색, 업무 자동화를 결합해 고객 지원부터 내부 운영까지 회사 데이터를 실제 업무에 활용할 수 있게 합니다.' },
+      tags: { en: ['Enterprise AI', 'AI Agents', 'Document Intelligence'], ko: ['기업용 AI', 'AI 에이전트', '문서 인텔리전스'] } },
+    { id: 'metalogos', name: 'metaLogos', logo: 'assets/logos/metalogos.jpg', url: 'https://metalogos.ai',
+      stage: { en: 'Pre-Series A', ko: '프리시리즈A' },
+      sector: { en: 'WealthTech & AI Investing', ko: '웰스테크·AI 투자' },
+      tagline: { en: 'Making systematic investing more accessible.', ko: '체계적인 투자를 더 쉽게.' },
+      desc: { en: 'metaLogos develops investment services powered by financial data and quantitative analysis. Its products include 160, which simplifies IPO investing, and MyStockPlan, which supports stock selection and trading based on predefined investment strategies.',
+              ko: 'metaLogos는 금융 데이터와 퀀트 분석 기반의 투자 서비스를 개발합니다. 공모주 투자를 간편하게 만든 ‘일육공(160)’과, 미리 정한 투자 전략에 따라 종목 선정과 매매를 돕는 ‘MyStockPlan’을 운영합니다.' },
+      tags: { en: ['WealthTech', 'Quantitative Investing', 'Investment Automation'], ko: ['웰스테크', '퀀트 투자', '투자 자동화'] } },
+    { id: 'telepix', name: 'TelePIX', logo: 'assets/logos/telepix.jpg', url: 'https://telepix.ai',
+      stage: { en: 'Pre-IPO', ko: '프리IPO' },
+      sector: { en: 'SpaceTech & Geospatial AI', ko: '우주기술·지리공간 AI' },
+      tagline: { en: 'From satellite imagery to actionable intelligence.', ko: '위성 영상을 바로 쓸 수 있는 인사이트로.' },
+      desc: { en: 'TelePIX delivers satellite solutions spanning imaging payloads, onboard processing, and AI-powered image analytics. Its technology transforms Earth observation data into insights that help organisations monitor change and make informed decisions.',
+              ko: 'TelePIX는 영상 탑재체, 위성 내 데이터 처리, AI 영상 분석을 아우르는 위성 솔루션을 제공합니다. 지구 관측 데이터를 인사이트로 바꿔, 조직이 변화를 모니터링하고 근거 있는 결정을 내리도록 돕습니다.' },
+      tags: { en: ['SpaceTech', 'Earth Observation', 'Geospatial AI'], ko: ['우주기술', '지구 관측', '지리공간 AI'] } },
+    { id: 'pia-space', name: 'PIA Space', logo: 'assets/logos/pia-space.jpg', url: 'https://www.pia.space',
+      stage: { en: 'Series A', ko: '시리즈A' },
+      sector: { en: 'Video Intelligence & Safety', ko: '영상 인텔리전스·안전' },
+      tagline: { en: 'Turn existing cameras into intelligent safety systems.', ko: '기존 카메라를 지능형 안전 시스템으로.' },
+      desc: { en: 'PIA Space develops AI video analytics that help operators detect and respond to safety incidents. Its MACS solution analyses existing CCTV footage to identify events such as fire, falls, and violence, supporting monitoring across public spaces, facilities, and industrial sites.',
+              ko: 'PIA Space는 운영자가 안전사고를 감지하고 대응하도록 돕는 AI 영상 분석 기술을 개발합니다. MACS 솔루션은 기존 CCTV 영상을 분석해 화재, 쓰러짐, 폭력 같은 상황을 감지하며, 공공장소·시설·산업 현장의 모니터링을 지원합니다.' },
+      tags: { en: ['Video AI', 'Safety Monitoring', 'Smart Infrastructure'], ko: ['영상 AI', '안전 모니터링', '스마트 인프라'] } },
+    { id: 'softment', name: 'Softment', logo: 'assets/logos/softment.jpg', url: 'https://www.softment.co.kr',
+      stage: { en: 'Series A', ko: '시리즈A' },
+      sector: { en: 'Payments & Merchant Technology', ko: '결제·가맹점 기술' },
+      tagline: { en: 'Connecting ordering, payments, and merchant operations.', ko: '주문, 결제, 매장 운영을 하나로.' },
+      desc: { en: 'Softment provides payment infrastructure and merchant solutions, including its Tablero QR ordering service. Combining smart ordering with payment processing capabilities, it helps businesses streamline customer transactions and day-to-day operations.',
+              ko: 'Softment는 결제 인프라와 QR 주문 서비스 ‘Tablero(테이블로)’ 등 가맹점 솔루션을 제공합니다. 스마트 주문과 결제 처리 기능을 결합해 고객 거래와 일상적인 매장 운영을 간소화합니다.' },
+      tags: { en: ['Payments', 'QR Ordering', 'Merchant Solutions'], ko: ['결제', 'QR 주문', '가맹점 솔루션'] } }
+  ];
+
+  var T = {
+    en: {
+      'ch.hero': 'Lab Crawl · Singapore', 'ch.intro': 'Meet the startups', 'ch.lineup': 'Lineup', 'ch.close': 'See you on 16 Nov',
+      cta: 'Meet the 7 startups', cta2: 'Lineup', route: 'Seoul → Singapore',
+      'cd.before': 'Doors open in', 'cd.d': 'Days', 'cd.h': 'Hrs', 'cd.m': 'Min', 'cd.s': 'Sec', 'cd.live': 'Live now', 'cd.after': 'Thank you for joining',
+      'f.date': 'Date', 'f.dateV': 'Mon, 16 November 2026', 'f.time': 'Time', 'f.timeV': '13:00–17:00 SGT', 'f.venue': 'Venue',
+      'st.1k': 'Startups', 'st.1d': 'Korean teams in the lineup', 'st.2k': 'Sectors', 'st.2d': 'From maritime AI to payments',
+      'st.3k': 'Markets', 'st.3d': 'Korea → Singapore', 'st.4k': 'Hours', 'st.4d': '13:00–17:00 SGT',
+      meet: 'Meet the Startups', sub: 'Seven Korean startups. New possibilities across borders.',
+      lede: 'Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.',
+      lineupT: 'Lineup at a glance', deckE: 'The startups', hint: 'Swipe or use ← → keys',
+      visit: 'Visit website', logo: ' logo', prev: 'Previous startup', next: 'Next startup', goto: 'Go to ',
+      closeT: 'Connect with the teams shaping <em>what’s next.</em>',
+      sup: 'Supported by Singapore Global Network', closeD: '16 November 2026 · 13:00–17:00 SGT · OGBC, Plus, Singapore', top: 'Back to top ↑'
     },
-    tags: { en: ["Maritime AI", "Autonomous Navigation", "Port Monitoring"], ko: ["해양 AI", "자율운항", "항만 모니터링"] }
-  },
-  {
-    id: "universe-ai", name: "Universe AI", logo: "assets/logos/universe-ai.jpg",
-    url: "https://univs.ai", stage: null,
-    sector: { en: "Biometrics & Digital Identity", ko: "생체인증·디지털 신원확인" },
-    tagline: { en: "Seamless identity verification through biometrics.", ko: "생체인증으로 끊김 없는 신원확인." },
-    desc: {
-      en: "Universe AI develops biometric authentication technology for payments, access control, and digital services. Its GATE platform brings together face and palm authentication with liveness detection, enabling businesses to integrate identity verification into their existing systems.",
-      ko: "Universe AI는 결제, 출입 통제, 디지털 서비스를 위한 생체인증 기술을 개발합니다. GATE 플랫폼은 얼굴·손바닥 인증과 위조 방지(라이브니스) 감지를 결합해, 기업이 기존 시스템에 신원확인 기능을 연동할 수 있게 합니다."
-    },
-    tags: { en: ["Biometrics", "Identity Verification", "Face Payments"], ko: ["생체인증", "신원확인", "얼굴 결제"] }
-  },
-  {
-    id: "sionic-ai", name: "Sionic AI", logo: "assets/logos/sionic-ai.jpg",
-    url: "https://sionic.ai", stage: { en: "Series A", ko: "시리즈A" },
-    sector: { en: "Enterprise AI & AI Agents", ko: "기업용 AI·AI 에이전트" },
-    tagline: { en: "Turn enterprise knowledge into AI-powered action.", ko: "기업의 지식을 AI가 움직이는 업무로." },
-    desc: {
-      en: "Sionic AI helps organisations build and deploy AI agents through its STORM platform. Combining document processing, enterprise knowledge retrieval, and workflow automation, it enables teams to put company data to work across customer support and internal operations.",
-      ko: "Sionic AI는 STORM 플랫폼으로 기업이 AI 에이전트를 구축하고 배포하도록 돕습니다. 문서 처리, 사내 지식 검색, 업무 자동화를 결합해 고객 지원부터 내부 운영까지 회사 데이터를 실제 업무에 활용할 수 있게 합니다."
-    },
-    tags: { en: ["Enterprise AI", "AI Agents", "Document Intelligence"], ko: ["기업용 AI", "AI 에이전트", "문서 인텔리전스"] }
-  },
-  {
-    id: "metalogos", name: "metaLogos", logo: "assets/logos/metalogos.jpg",
-    url: "https://metalogos.ai", stage: { en: "Pre-Series A", ko: "프리시리즈A" },
-    sector: { en: "WealthTech & AI Investing", ko: "웰스테크·AI 투자" },
-    tagline: { en: "Making systematic investing more accessible.", ko: "체계적인 투자를 더 쉽게." },
-    desc: {
-      en: "metaLogos develops investment services powered by financial data and quantitative analysis. Its products include 160, which simplifies IPO investing, and MyStockPlan, which supports stock selection and trading based on predefined investment strategies.",
-      ko: "metaLogos는 금융 데이터와 퀀트 분석 기반의 투자 서비스를 개발합니다. 공모주 투자를 간편하게 만든 '일육공(160)'과, 미리 정한 투자 전략에 따라 종목 선정과 매매를 돕는 'MyStockPlan'을 운영합니다."
-    },
-    tags: { en: ["WealthTech", "Quantitative Investing", "Investment Automation"], ko: ["웰스테크", "퀀트 투자", "투자 자동화"] }
-  },
-  {
-    id: "telepix", name: "TelePIX", logo: "assets/logos/telepix.jpg",
-    url: "https://telepix.ai", stage: { en: "Pre-IPO", ko: "프리IPO" },
-    sector: { en: "SpaceTech & Geospatial AI", ko: "우주기술·지리공간 AI" },
-    tagline: { en: "From satellite imagery to actionable intelligence.", ko: "위성 영상을 바로 쓸 수 있는 인사이트로." },
-    desc: {
-      en: "TelePIX delivers satellite solutions spanning imaging payloads, onboard processing, and AI-powered image analytics. Its technology transforms Earth observation data into insights that help organisations monitor change and make informed decisions.",
-      ko: "TelePIX는 영상 탑재체, 위성 내 데이터 처리, AI 영상 분석을 아우르는 위성 솔루션을 제공합니다. 지구 관측 데이터를 인사이트로 바꿔, 조직이 변화를 모니터링하고 근거 있는 결정을 내리도록 돕습니다."
-    },
-    tags: { en: ["SpaceTech", "Earth Observation", "Geospatial AI"], ko: ["우주기술", "지구 관측", "지리공간 AI"] }
-  },
-  {
-    id: "pia-space", name: "PIA Space", logo: "assets/logos/pia-space.jpg",
-    url: "https://www.pia.space", stage: { en: "Series A", ko: "시리즈A" },
-    sector: { en: "Video Intelligence & Safety", ko: "영상 인텔리전스·안전" },
-    tagline: { en: "Turn existing cameras into intelligent safety systems.", ko: "기존 카메라를 지능형 안전 시스템으로." },
-    desc: {
-      en: "PIA Space develops AI video analytics that help operators detect and respond to safety incidents. Its MACS solution analyses existing CCTV footage to identify events such as fire, falls, and violence, supporting monitoring across public spaces, facilities, and industrial sites.",
-      ko: "PIA Space는 운영자가 안전사고를 감지하고 대응하도록 돕는 AI 영상 분석 기술을 개발합니다. MACS 솔루션은 기존 CCTV 영상을 분석해 화재, 쓰러짐, 폭력 같은 상황을 감지하며, 공공장소·시설·산업 현장의 모니터링을 지원합니다."
-    },
-    tags: { en: ["Video AI", "Safety Monitoring", "Smart Infrastructure"], ko: ["영상 AI", "안전 모니터링", "스마트 인프라"] }
-  },
-  {
-    id: "softment", name: "Softment", logo: "assets/logos/softment.jpg",
-    url: "https://www.softment.co.kr", stage: { en: "Series A", ko: "시리즈A" },
-    sector: { en: "Payments & Merchant Technology", ko: "결제·가맹점 기술" },
-    tagline: { en: "Connecting ordering, payments, and merchant operations.", ko: "주문, 결제, 매장 운영을 하나로." },
-    desc: {
-      en: "Softment provides payment infrastructure and merchant solutions, including its Tablero QR ordering service. Combining smart ordering with payment processing capabilities, it helps businesses streamline customer transactions and day-to-day operations.",
-      ko: "Softment는 결제 인프라와 QR 주문 서비스 'Tablero(테이블로)' 등 가맹점 솔루션을 제공합니다. 스마트 주문과 결제 처리 기능을 결합해 고객 거래와 일상적인 매장 운영을 간소화합니다."
-    },
-    tags: { en: ["Payments", "QR Ordering", "Merchant Solutions"], ko: ["결제", "QR 주문", "가맹점 솔루션"] }
-  }
-];
-
-var TEXT = {
-  en: {
-    dateLabel: "Date", venueLabel: "Venue",
-    date: "Monday, 16 November 2026 · 13:00–17:00 SGT",
-    cta: "Explore the startups ↓",
-    meet: "Meet the Startups",
-    sub: "Seven Korean startups. New possibilities across borders.",
-    lede: "Discover seven Korean startups advancing maritime intelligence, digital identity, enterprise AI, investment technology, satellite analytics, video intelligence, and payments. Meet the teams and explore opportunities for collaboration across Singapore and the wider region.",
-    glance: "At a glance", thCompany: "Company", thSector: "Sector", thStage: "Funding stage",
-    visit: "Visit website",
-    logoAlt: " logo",
-    footTitle: "Connect with the teams shaping what's next.",
-    supported: "Supported by Singapore Global Network",
-    footDate: "16 November 2026 · OGBC, Plus, Singapore"
-  },
-  ko: {
-    dateLabel: "일시", venueLabel: "장소",
-    date: "2026년 11월 16일 (월) · 13:00–17:00 (싱가포르 시간)",
-    cta: "참가 스타트업 보기 ↓",
-    meet: "참가 스타트업",
-    sub: "한국 스타트업 7곳, 국경을 넘는 새로운 가능성.",
-    lede: "해양 인텔리전스, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 분석, 영상 인텔리전스, 결제 분야에서 혁신을 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르와 아시아 지역에서의 협업 기회를 찾아보세요.",
-    glance: "한눈에 보기", thCompany: "회사", thSector: "분야", thStage: "투자 단계",
-    visit: "웹사이트 방문",
-    logoAlt: " 로고",
-    footTitle: "다음을 만들어 갈 팀들과 연결되세요.",
-    supported: "후원: Singapore Global Network",
-    footDate: "2026년 11월 16일 · OGBC, Plus, Singapore"
-  }
-};
-
-var lang = "en";
-
-function el(tag, cls, text) {
-  var n = document.createElement(tag);
-  if (cls) n.className = cls;
-  if (text != null) n.textContent = text;
-  return n;
-}
-function host(u) { return u.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, ""); }
-
-function render() {
-  var t = TEXT[lang];
-  document.documentElement.lang = lang;
-  document.getElementById("btn-en").setAttribute("aria-pressed", String(lang === "en"));
-  document.getElementById("btn-ko").setAttribute("aria-pressed", String(lang === "ko"));
-  document.querySelectorAll("[data-i18n]").forEach(function (n) {
-    var k = n.getAttribute("data-i18n");
-    if (t[k] != null) n.textContent = t[k];
-  });
-
-  var rows = document.getElementById("glance-rows");
-  rows.textContent = "";
-  STARTUPS.forEach(function (s) {
-    var tr = el("tr");
-    var c1 = el("td"); var a = el("a", null, s.name); a.href = "#" + s.id; c1.appendChild(a);
-    var c2 = el("td", null, s.sector[lang]);
-    var c3 = s.stage ? el("td", "stage-cell", s.stage[lang]) : el("td", "stage-cell empty", "—");
-    tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3);
-    rows.appendChild(tr);
-  });
-
-  var list = document.getElementById("cards");
-  list.textContent = "";
-  STARTUPS.forEach(function (s) {
-    var li = el("li", "card"); li.id = s.id;
-
-    var who = el("div", "who");
-    var top = el("div", "who-top");
-    var box = el("div", "logo");
-    var img = el("img"); img.src = s.logo; img.alt = s.name + t.logoAlt;
-    img.onerror = function () { box.textContent = s.name; };
-    box.appendChild(img);
-    top.appendChild(box);
-    if (s.stage) top.appendChild(el("span", "stage", s.stage[lang]));
-    who.appendChild(top);
-    who.appendChild(el("h3", "name", s.name));
-    who.appendChild(el("p", "sector", s.sector[lang]));
-
-    var what = el("div", "what");
-    what.appendChild(el("p", "tagline", s.tagline[lang]));
-    what.appendChild(el("p", "desc", s.desc[lang]));
-    var tags = el("ul", "tags");
-    s.tags[lang].forEach(function (x) { tags.appendChild(el("li", null, x)); });
-    what.appendChild(tags);
-    if (s.url) {
-      var v = el("a", "visit");
-      v.href = s.url; v.target = "_blank"; v.rel = "noopener noreferrer";
-      v.appendChild(document.createTextNode(t.visit + " ↗ "));
-      v.appendChild(el("small", null, host(s.url)));
-      what.appendChild(v);
+    ko: {
+      'ch.hero': '랩 크롤 · 싱가포르', 'ch.intro': '참가 스타트업', 'ch.lineup': '라인업', 'ch.close': '11월 16일에 만나요',
+      cta: '7개 스타트업 보기', cta2: '라인업', route: '서울 → 싱가포르',
+      'cd.before': '행사 시작까지', 'cd.d': '일', 'cd.h': '시간', 'cd.m': '분', 'cd.s': '초', 'cd.live': '지금 진행 중', 'cd.after': '함께해 주셔서 감사합니다',
+      'f.date': '일자', 'f.dateV': '2026년 11월 16일 (월)', 'f.time': '시간', 'f.timeV': '13:00–17:00 (싱가포르 시간)', 'f.venue': '장소',
+      'st.1k': '스타트업', 'st.1d': '참가하는 한국 팀', 'st.2k': '분야', 'st.2d': '해양 AI부터 결제까지',
+      'st.3k': '시장', 'st.3d': '한국 → 싱가포르', 'st.4k': '시간', 'st.4d': '13:00–17:00 (싱가포르 시간)',
+      meet: '참가 스타트업', sub: '한국 스타트업 7곳, 국경을 넘는 새로운 가능성.',
+      lede: '해양 인텔리전스, 디지털 신원확인, 기업용 AI, 투자 기술, 위성 분석, 영상 인텔리전스, 결제 분야에서 혁신을 이끄는 한국 스타트업 7곳을 소개합니다. 각 팀을 직접 만나 싱가포르와 아시아 지역에서의 협업 기회를 찾아보세요.',
+      lineupT: '한눈에 보는 라인업', deckE: '스타트업 소개', hint: '옆으로 넘기거나 ← → 키를 쓰세요',
+      visit: '웹사이트 방문', logo: ' 로고', prev: '이전 스타트업', next: '다음 스타트업', goto: '이동: ',
+      closeT: '다음을 만들어 갈 팀들과 <em>연결되세요.</em>',
+      sup: '후원: Singapore Global Network', closeD: '2026년 11월 16일 · 13:00–17:00 (싱가포르 시간) · OGBC, Plus, Singapore', top: '맨 위로 ↑'
     }
-
-    li.appendChild(who); li.appendChild(what);
-    list.appendChild(li);
+  };
+  var N = STARTUPS.length;
+  STARTUPS.forEach(function (s, i) {
+    ['en', 'ko'].forEach(function (l) {
+      T[l]['s' + i + '.sector'] = s.sector[l];
+      T[l]['s' + i + '.tag'] = s.tagline[l];
+      T[l]['s' + i + '.desc'] = s.desc[l];
+      T[l]['s' + i + '.stage'] = s.stage ? s.stage[l] : '';
+    });
   });
-}
 
-document.querySelector(".lang").addEventListener("click", function (e) {
-  var b = e.target.closest("button[data-lang]");
-  if (!b || b.getAttribute("data-lang") === lang) return;
-  lang = b.getAttribute("data-lang");
-  try { localStorage.setItem("kbfg-lang", lang); } catch (err) {}
-  render();
-});
+  function el(tag, cls, text, attrs) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    if (attrs) for (var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function host(u) { return u.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, ''); }
 
-try { var saved = localStorage.getItem("kbfg-lang"); if (saved === "ko" || saved === "en") lang = saved; } catch (err) {}
-render();
+  /* ---------- build: marquee, lineup rows, slides, pager ---------- */
+  var mq = $('#mq');
+  for (var rep = 0; rep < 2; rep++) {
+    STARTUPS.forEach(function (s) { mq.appendChild(el('span', null, s.sector.en)); });
+  }
+
+  var rows = $('#rows');
+  STARTUPS.forEach(function (s, i) {
+    var li = el('li');
+    var a = el('a', null, null, { href: '#' + s.id, 'data-i': i });
+    a.appendChild(el('span', 'n', pad(i + 1)));
+    var nm = el('span', 'nm', s.name);
+    nm.appendChild(el('span', 'sc', null, { 'data-i18n': 's' + i + '.sector' }));
+    a.appendChild(nm);
+    a.appendChild(el('span', 'sc2', null, { 'data-i18n': 's' + i + '.sector' }));
+    a.appendChild(el('span', 'st' + (s.stage ? '' : ' none'), null, { 'data-i18n': 's' + i + '.stage' }));
+    a.appendChild(el('span', 'ar', '→', { 'aria-hidden': 'true' }));
+    li.appendChild(a);
+    rows.appendChild(li);
+  });
+
+  var track = $('#track'), pager = $('#pager');
+  STARTUPS.forEach(function (s, i) {
+    var art = el('article', 'slide', null, { id: s.id, 'aria-roledescription': 'slide', 'aria-label': (i + 1) + ' / ' + N + ': ' + s.name });
+    var top = el('div', 'sl-top');
+    var num = el('div', 'sl-num', pad(i + 1), { 'aria-hidden': 'true' });
+    num.appendChild(el('small', null, '/ ' + pad(N)));
+    top.appendChild(num);
+    if (s.stage) top.appendChild(el('span', 'pill', null, { 'data-i18n': 's' + i + '.stage' }));
+    art.appendChild(top);
+
+    var A = el('div', 'sl-a');
+    var box = el('div', 'logo');
+    var img = el('img', null, null, { src: s.logo, alt: s.name + ' logo', width: '142', height: '74', 'data-alt': '1' });
+    img.onerror = function () { box.textContent = ''; box.appendChild(el('span', 'fb', s.name)); };
+    box.appendChild(img);
+    A.appendChild(box);
+    var nmw = el('div');
+    nmw.appendChild(el('h3', 'sl-name', s.name));
+    nmw.appendChild(el('p', 'sl-sector', null, { 'data-i18n': 's' + i + '.sector' }));
+    A.appendChild(nmw);
+
+    var B = el('div', 'sl-b');
+    B.appendChild(el('p', 'sl-tag', null, { 'data-i18n': 's' + i + '.tag' }));
+    B.appendChild(el('p', 'sl-desc', null, { 'data-i18n': 's' + i + '.desc' }));
+    var tg = el('ul', 'tags', null, { 'data-tags': i });
+    B.appendChild(tg);
+    if (s.url) {
+      var v = el('a', 'visit', null, { href: s.url, target: '_blank', rel: 'noopener noreferrer' });
+      v.appendChild(el('span', null, null, { 'data-i18n': 'visit' }));
+      v.appendChild(document.createTextNode(' ↗ '));
+      v.appendChild(el('small', null, host(s.url)));
+      B.appendChild(v);
+    }
+    art.appendChild(A); art.appendChild(B);
+    track.appendChild(art);
+
+    var pb = el('button', null, null, { type: 'button', 'data-i': i, 'aria-current': i === 0 ? 'true' : 'false' });
+    pager.appendChild(pb);
+  });
+  var slides = $$('.slide', track), pbs = $$('button', pager);
+
+  /* ---------- decode: live-caption scramble ---------- */
+  var POOL = {
+    en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+    ko: '가각간감강개거건검게결경고공과관광교구국군권규그근금기나난남내너년노누는다단달담당대더도동두등라람래로료루류리마만말매머면명모목무문물미바박반방배백번법변별보본부북분비사산상새서석선설성세소손수술시식신실심아안암앞야약양어언얼업에여역연열영예오온완외요용우운원월위유육은을음의이인일임입자작장재저전점정제조존종주준중지진질집차찬참창채처천청체초총최추출충치친카타탈태터토통투트파판패페편평포표품프피하학한할함합항해행향허현형호화확환활회효후휴흥희'
+  };
+  var KEEP = /[\s.,·•—–\-()（）:;!?'"‘’“”&\/+~→←↑↗|]/;
+  function rnd(p) { return p.charAt((Math.random() * p.length) | 0); }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function inView(n) { var r = n.getBoundingClientRect(); return r.bottom > -40 && r.top < innerHeight + 40 && r.right > 0 && r.left < innerWidth; }
+  function scram(t, a, b, p) { var s = ''; for (var i = a; i < b; i++) { var c = t.charAt(i); s += KEEP.test(c) ? c : rnd(p); } return s; }
+  function decode(n, text, lang, o) {
+    o = o || {};
+    if (n._raf) cancelAnimationFrame(n._raf);
+    if (R || (!o.force && !inView(n))) { n.textContent = text; return; }
+    var L = text.length, pool = POOL[lang] || POOL.en, mode = o.mode || 'caption', W = o.win || 8;
+    var dur = o.dur || Math.min(1000, Math.max(380, L * 8)), t0 = performance.now() + (o.delay || 0), f = 0;
+    function step(now) {
+      var p = Math.max(0, Math.min(1, (now - t0) / dur));
+      if (p < 1 && (f++ % 2)) { n._raf = requestAnimationFrame(step); return; }
+      var out;
+      if (mode === 'full') {
+        var d = Math.floor(p * L);
+        out = esc(text.slice(0, d)) + '<span class="scr">' + esc(scram(text, d, L, pool)) + '</span>';
+      } else {
+        var k = Math.floor(p * (L + W)), done = Math.max(0, Math.min(L, k - W)), end = Math.min(L, k);
+        out = esc(text.slice(0, done)) + '<span class="scr">' + esc(scram(text, done, end, pool)) + '</span><span class="ghost">' + esc(text.slice(end)) + '</span>';
+      }
+      if (p < 1) { n.innerHTML = out; n._raf = requestAnimationFrame(step); }
+      else { n.textContent = text; n._raf = 0; }
+    }
+    n._raf = requestAnimationFrame(step);
+  }
+
+  /* ---------- language ---------- */
+  var lang = 'en', langBtns = $$('.langs button');
+  function setLang(l, animate) {
+    lang = l;
+    document.documentElement.lang = l;
+    langBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l)); });
+    $$('[data-i18n]').forEach(function (n) {
+      var v = T[l][n.getAttribute('data-i18n')];
+      if (v == null) return;
+      if (animate) decode(n, v, l); else n.textContent = v;
+    });
+    $$('[data-i18n-html]').forEach(function (n) { n.innerHTML = T[l][n.getAttribute('data-i18n-html')]; });
+    $$('[data-tags]').forEach(function (u) {
+      u.textContent = '';
+      STARTUPS[+u.getAttribute('data-tags')].tags[l].forEach(function (x) { u.appendChild(el('li', null, x)); });
+    });
+    $('#prev').setAttribute('aria-label', T[l].prev);
+    $('#next').setAttribute('aria-label', T[l].next);
+    pbs.forEach(function (b, i) { b.setAttribute('aria-label', T[l].goto + STARTUPS[i].name); });
+    $$('img[data-alt]').forEach(function (im, i) { im.alt = STARTUPS[i].name + T[l].logo; });
+    updateChapter(); tickCountdown();
+  }
+  langBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var l = b.getAttribute('data-lang');
+      if (l === lang) return;
+      setLang(l, true);
+      try { localStorage.setItem('kbfg-lang', l); } catch (e) {}
+    });
+  });
+
+  /* ---------- hero headline: EN ⇄ KO, decoded like a live caption ---------- */
+  var HL = { en: ['Innovation', 'Beyond', 'Borders'], ko: ['국경을', '넘는', '혁신'] };
+  var hlLines = $$('.hl > span'), capTag = $('#capTag'), hero = $('#top'), heroOn = true, hlLang = 'en';
+  function heroStep() {
+    if (heroOn && !document.hidden) {
+      var from = hlLang; hlLang = hlLang === 'en' ? 'ko' : 'en';
+      capTag.textContent = (from === 'en' ? 'ENG' : 'KOR') + ' → ' + (hlLang === 'en' ? 'ENG' : 'KOR');
+      hlLines.forEach(function (ln, i) {
+        ln.lang = hlLang;
+        decode(ln, HL[hlLang][i], hlLang, { mode: 'full', dur: 760 + i * 200, force: true });
+      });
+    }
+    setTimeout(heroStep, 4800);
+  }
+
+  /* ---------- route: arc draws, then a dot flies ICN → SIN ---------- */
+  var arc = $('#arc'), plane = $('#plane'), arcLen = arc.getTotalLength();
+  arc.style.strokeDasharray = arcLen; arc.style.strokeDashoffset = R ? 0 : arcLen;
+  var tRoute = performance.now();
+  function routeFrame(now) {
+    if (heroOn) {
+      var t = (now - tRoute) / 1000;
+      var draw = Math.min(1, t / 1.6), e = 1 - Math.pow(1 - draw, 3);
+      arc.style.strokeDashoffset = arcLen * (1 - e);
+      var cyc = Math.max(0, t - 1.2) % 4.2, p = Math.min(1, cyc / 3.2), ep = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      var pt = arc.getPointAtLength(arcLen * ep);
+      plane.setAttribute('cx', pt.x.toFixed(1)); plane.setAttribute('cy', pt.y.toFixed(1));
+      plane.style.opacity = t < 1.2 ? 0 : (p >= 1 ? 0.25 : 1);
+    }
+    requestAnimationFrame(routeFrame);
+  }
+
+  /* ---------- countdown to 16 Nov 2026 13:00 SGT (05:00 UTC) ---------- */
+  var START = Date.UTC(2026, 10, 16, 5, 0, 0), END = Date.UTC(2026, 10, 16, 9, 0, 0);
+  var cdBox = $('#cd'), cdLive = $('#cdLive'), cdLabel = $('#cdLabel');
+  function tickCountdown() {
+    var now = Date.now(), t = T[lang];
+    if (now < START) {
+      var s = Math.floor((START - now) / 1000);
+      $('#cdD').textContent = pad(Math.floor(s / 86400));
+      $('#cdH').textContent = pad(Math.floor(s / 3600) % 24);
+      $('#cdM').textContent = pad(Math.floor(s / 60) % 60);
+      $('#cdS').textContent = pad(s % 60);
+      cdBox.hidden = false; cdLive.hidden = true; cdLabel.hidden = false;
+      cdLabel.textContent = t['cd.before'];
+    } else {
+      cdBox.hidden = true; cdLive.hidden = false; cdLabel.hidden = true;
+      $('#cdLiveText').textContent = now < END ? t['cd.live'] : t['cd.after'];
+      cdLive.querySelector('.dot').hidden = now >= END;
+    }
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  /* ---------- deck ---------- */
+  var cur = 0, curEl = $('#cur'), prevB = $('#prev'), nextB = $('#next');
+  function setActive(i) {
+    cur = i;
+    curEl.textContent = pad(i + 1);
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    pbs.forEach(function (b, k) { b.setAttribute('aria-current', String(k === i)); });
+    prevB.disabled = i === 0; nextB.disabled = i === N - 1;
+    updateChapter();
+  }
+  function goTo(i, smooth) {
+    i = Math.max(0, Math.min(N - 1, i));
+    track.scrollTo({ left: slides[i].offsetLeft - slides[0].offsetLeft, behavior: smooth && !R ? 'smooth' : 'auto' });
+    setActive(i);
+  }
+  var sRaf = 0;
+  track.addEventListener('scroll', function () {
+    if (sRaf) return;
+    sRaf = requestAnimationFrame(function () {
+      sRaf = 0;
+      var step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : 1;
+      var i = Math.round(track.scrollLeft / step);
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) i = N - 1;
+      if (i !== cur) setActive(Math.max(0, Math.min(N - 1, i)));
+    });
+  }, { passive: true });
+  prevB.addEventListener('click', function () { goTo(cur - 1, true); });
+  nextB.addEventListener('click', function () { goTo(cur + 1, true); });
+  pbs.forEach(function (b) { b.addEventListener('click', function () { goTo(+b.getAttribute('data-i'), true); }); });
+  var deckSec = $('#deck'), deckOn = false;
+  document.addEventListener('keydown', function (e) {
+    if (!deckOn || e.altKey || e.metaKey || e.ctrlKey) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(cur + 1, true); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1, true); }
+  });
+  function openSlide(i) {
+    deckSec.scrollIntoView({ behavior: R ? 'auto' : 'smooth', block: 'start' });
+    goTo(i, false);
+  }
+  $$('#rows a').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); openSlide(+a.getAttribute('data-i')); });
+  });
+
+  /* ---------- chapter label + progress bar ---------- */
+  var tbCh = $('#tbCh'), chNum = '00', chKey = 'ch.hero';
+  function updateChapter() {
+    tbCh.textContent = '';
+    if (chKey === 'deck') {
+      tbCh.appendChild(el('b', null, pad(cur + 1) + '/' + pad(N)));
+      tbCh.appendChild(el('span', null, STARTUPS[cur].name + ' · ' + STARTUPS[cur].sector[lang]));
+    } else {
+      tbCh.appendChild(el('b', null, chNum));
+      tbCh.appendChild(el('span', null, T[lang][chKey]));
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var chIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { chNum = e.target.getAttribute('data-ch'); chKey = e.target.getAttribute('data-chk'); updateChapter(); }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    $$('[data-ch]').forEach(function (s) { chIO.observe(s); });
+    new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting; }).observe(hero);
+    new IntersectionObserver(function (es) { deckOn = es[0].isIntersecting; }, { threshold: 0.35 }).observe(deckSec);
+  }
+  var prog = $('#prog'), pt = false;
+  function onScroll() {
+    var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    prog.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+    pt = false;
+  }
+  addEventListener('scroll', function () { if (!pt) { pt = true; requestAnimationFrame(onScroll); } }, { passive: true });
+
+  /* ---------- reveal (resting state is visible; plays only for content entering from below) ---------- */
+  if (!R && 'IntersectionObserver' in window) {
+    var rvIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        rvIO.unobserve(e.target);
+        if (e.boundingClientRect.top > innerHeight * 0.55) e.target.classList.add('play');
+        var n = e.target.getAttribute('data-count');
+        if (n) {
+          var v = $('.v', e.target), target = +n, t0 = performance.now();
+          (function run(now) {
+            var p = Math.min(1, (now - t0) / 1400), k = 1 - Math.pow(1 - p, 4);
+            v.textContent = pad(Math.round(target * k));
+            if (p < 1) requestAnimationFrame(run);
+          })(t0);
+        }
+      });
+    }, { threshold: 0.15 });
+    $$('.rv').forEach(function (n) { rvIO.observe(n); });
+  }
+
+  /* ---------- start ---------- */
+  var initial = 'en';
+  try { var saved = localStorage.getItem('kbfg-lang'); if (saved === 'ko' || saved === 'en') initial = saved; } catch (e) {}
+  setLang(initial, false);
+  setActive(0);
+  onScroll();
+  if (!R) { setTimeout(heroStep, 4200); requestAnimationFrame(routeFrame); }
+  else { var end = arc.getPointAtLength(arcLen); plane.setAttribute('cx', end.x); plane.setAttribute('cy', end.y); }
+  var hash = (location.hash || '').slice(1);
+  STARTUPS.forEach(function (s, i) { if (s.id === hash) setTimeout(function () { openSlide(i); }, 60); });
+})();
 </script>
 </body>
 </html>
