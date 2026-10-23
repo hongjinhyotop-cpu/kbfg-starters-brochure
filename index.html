@@ -151,12 +151,12 @@ html[lang="ko"] .lbl-sm { letter-spacing: 0.02em; }
 
 /* ---------- intro ---------- */
 .intro .inner { padding-block: 72px 32px; display: grid; gap: 20px; }
-.h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(44px, 11vw, 104px); line-height: 0.93; letter-spacing: -0.05em; }
-.h2 .ln { display: flex; align-items: center; gap: 0.14em; flex-wrap: wrap; }
-html[lang="ko"] .h2 { font-size: clamp(38px, 9.4vw, 86px); line-height: 1.12; letter-spacing: -0.04em; display: grid; row-gap: 0.06em; }
-html[lang="ko"] .h2 .ln { flex-wrap: nowrap; }
+.h2 { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(42px, 10.4vw, 92px); line-height: 0.93; letter-spacing: -0.05em; }
+.h2 .ln { display: flex; align-items: center; gap: 0.16em; flex-wrap: nowrap; white-space: nowrap; }
+html[lang="ko"] .h2 { font-size: clamp(38px, 9.4vw, 84px); line-height: 1.12; letter-spacing: -0.04em; display: grid; row-gap: 0.06em; }
+html[lang="ko"] .h2 .pill { transform: none; }
 html[lang="ko"] .hl { line-height: 1.04; }
-.h2 .pill { display: inline-flex; flex: none; width: 2.4em; height: 0.74em; border-radius: 999px; background: var(--pink); padding: 0.07em; }
+.h2 .pill { display: inline-flex; flex: none; width: 1.95em; height: 0.66em; border-radius: 999px; background: var(--pink); padding: 0.045em; transform: translateY(0.04em); }
 .roll { position: relative; flex: 1; border-radius: 999px; background: #fff; overflow: hidden; }
 .roll img { position: absolute; left: 9%; top: 9%; width: 82%; height: 82%; object-fit: contain; transform: translateY(115%); transition: transform .7s var(--ease); }
 .roll img.on { transform: none; }
@@ -166,6 +166,8 @@ html[lang="ko"] .hl { line-height: 1.04; }
 @media (min-width: 980px) {
   .intro .inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 64px; align-items: end; }
   .intro .h2 { grid-row: 1 / span 2; }
+  .h2 { font-size: clamp(54px, 6.1vw, 92px); }
+  html[lang="ko"] .h2 { font-size: clamp(50px, 5.7vw, 84px); }
 }
 
 /* ---------- lineup ---------- */
